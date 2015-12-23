@@ -107,18 +107,9 @@ rec {
     system = "i686-linux,x86_64-linux";
     maxJobs = 20;
     speedFactor = 16;
-  }] ++ (builtins.map (hostName: {
-    inherit hostName;
-    sshUser = "root";
-    sshKey = "/home/nathan/.ssh/id_nix_arm";
-    system = "armv7l-linux";
-  }) ["212.47.234.142" "212.47.240.95" "212.47.231.144" "212.47.230.63"]);
+  }];
   nix.useChroot = true;
   nix.chrootDirs = [ "/usr/bin/env=${pkgs.coreutils}/bin/env" ];
-
-  # ARM
-  nix.binaryCachePublicKeys = [ "nixos-arm.dezgeg.me-1:xBaUKS3n17BZPKeyxL4JfbTqECsT+ysbDJz29kLFRW0=" ];
-  nix.binaryCaches = [ "http://nixos-arm.dezgeg.me/channel/" ];
 
   networking.usePredictableInterfaceNames = false; # fuck that noise
 
