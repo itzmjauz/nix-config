@@ -1,0 +1,162 @@
+{ config, pkgs, ... }:
+rec {
+  imports = [
+    ./boot
+    <nixpkgs/nixos/modules/profiles/all-hardware.nix>
+    <nixpkgs/nixos/modules/config/fonts/fontconfig-ultimate.nix>
+  ];
+
+  boot.kernelPackages = pkgs.linuxPackages_4_3;
+
+  environment.variables.EDITOR = "vim";
+  environment.systemPackages = with pkgs; let
+    sshttp = pkgs.callPackage ./pkgs/sshttp {};
+  in [ fish chromium spotify vim terminator nix-repl silver-searcher which fortune mosh compton git mpv pass gnupg sshttp steam ctags editorconfig-core-c nodejs alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq xonotic git-hub youtube-dl ];
+
+  services.xserver = {
+    enable = true;
+    windowManager.awesome.enable = true;
+    desktopManager.xterm.enable = false;
+    synaptics = {
+      enable = true;
+      tapButtons = false;
+      twoFingerScroll = true;
+    };
+    xkbOptions = "compose:caps";
+    displayManager.slim = {
+      enable = true;
+      defaultUser = "nathan";
+      theme = ./slim-theme;
+    };
+  };
+
+  networking.hostName = "koala";
+  networking.networkmanager.enable = true;
+
+  hardware.pulseaudio.enable = true;
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.chromium.enableAdobeFlash = true;
+
+  users = let
+    attrs = {
+      openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDG9SzR0M6zpb8Jy0/zRLwMeuJEjrAYTtOWzrt7HGgHBth/uuMcydYUAnYAj8L9wMyGfNnCdwbx+PAm86cFHqrpVVlUkGk3JxmL+SrNwJ8DcYbvgGIKuIesc2eFfkoYo/LVBTxUpkwuINwyL+M1h7IK9b6SQ2j7DLelF2svQtS4OhNpl/sDf9UDBatejel4lFWxCEh0Bre8Y0WOukb866W5c9q/dJr5Bs6OA/CKES1YhQUw/g3PX3+XcOQ6fpfZhEIAZJvkoBUfh1N9TUOdQ4rwvFx3inRYpIzbiA+QlGnyE1WHcE+FY0FlKU/IocayInkYvWwwGJusx0L7O1IdqzIl nathan@koala" ];
+    };
+  in {
+    users.root = attrs;
+    extraUsers.nathan = attrs // {
+      isNormalUser = true;
+      extraGroups = [ "wheel" "networkmanager" "docker" ];
+    };
+  };
+
+  fonts = {
+    enableFontDir = true;
+    enableGhostscriptFonts = true;
+    fonts = with pkgs; [ source-code-pro carlito ];
+  };
+
+  nix.nixPath = [
+   "nixpkgs=/home/nathan/src/github.com/NixOS/nixpkgs"
+   "nixos-config=/etc/nixos/configuration.nix"
+  ];
+
+  services.logind.extraConfig = "HandleLidSwitch=ignore\nHandlePowerKey=suspend";
+
+  services.openvpn.servers.client = {
+    autoStart = false;
+    config = ''
+      client
+      dev tun
+      proto udp
+      remote vpn.nathan7.eu 1194
+      nobind
+
+      persist-key
+      persist-tun
+
+      ca /home/nathan/.vpn/ca.crt
+      cert /home/nathan/.vpn/client.crt
+      key /home/nathan/.vpn/client.key
+
+      keepalive 10 120
+
+      cipher AES-256-CBC
+      comp-lzo
+
+      verb 4
+    '';
+  };
+
+  hardware.opengl.driSupport32Bit = true;
+  hardware.pulseaudio.support32Bit = true;
+
+  time.timeZone = "Europe/Amsterdam";
+  i18n.defaultLocale = "en_GB.UTF-8";
+
+  services.physlock = {
+    enable = true;
+    user = "nathan";
+  };
+  security.setuidPrograms = [ "physlock" ];
+
+  nix.distributedBuilds = true;
+  nix.buildMachines = [{
+    hostName = "52.31.157.204";
+    sshUser = "nathan";
+    sshKey = "/home/nathan/.ssh/id_nix";
+    system = "i686-linux,x86_64-linux";
+    maxJobs = 20;
+    speedFactor = 16;
+  }] ++ (builtins.map (hostName: {
+    inherit hostName;
+    sshUser = "root";
+    sshKey = "/home/nathan/.ssh/id_nix_arm";
+    system = "armv7l-linux";
+  }) ["212.47.234.142" "212.47.240.95" "212.47.231.144" "212.47.230.63"]);
+  nix.useChroot = true;
+  nix.chrootDirs = [ "/usr/bin/env=${pkgs.coreutils}/bin/env" ];
+
+  # ARM
+  nix.binaryCachePublicKeys = [ "nixos-arm.dezgeg.me-1:xBaUKS3n17BZPKeyxL4JfbTqECsT+ysbDJz29kLFRW0=" ];
+  nix.binaryCaches = [ "http://nixos-arm.dezgeg.me/channel/" ];
+
+  networking.usePredictableInterfaceNames = false; # fuck that noise
+
+  services.redshift = {
+    enable = true;
+    latitude = "52.314487";
+    longitude = "4.64127";
+    temperature.night = 3000;
+    brightness.night = "0.7";
+    extraOptions = [ "-r" ];
+  };
+
+  services.xserver.displayManager.sessionCommands = builtins.concatStringsSep "\n" [
+    "${pkgs.terminator}/bin/terminator -e \"fish -c 'while true; panther; end'\" &"
+    "${pkgs.networkmanagerapplet}/bin/nm-applet &"
+  ];
+
+  services.kmscon = {
+    enable = true;
+    extraOptions = "--term xterm-256color --palette solarized";
+  };
+  boot.kernelParams = [
+    "vt.default_red=0x07,0xdc,0x85,0xb5,0x26,0xd3,0x2a,0xee,0x00,0xcb,0x58,0x65,0x83,0x6c,0x93,0xfd"
+    "vt.default_grn=0x36,0x32,0x99,0x89,0x8b,0x36,0xa1,0xe8,0x2b,0x4b,0x6e,0x7b,0x94,0x71,0xa1,0xf6"
+    "vt.default_blu=0x42,0x2f,0x00,0x00,0xd2,0x82,0x98,0xd5,0x36,0x16,0x75,0x83,0x96,0xc4,0xa1,0xe3"
+  ];
+  boot.loader.gummibootr.background = "#002b36";
+
+  virtualisation.docker = {
+    enable = true;
+    storageDriver = "zfs";
+    socketActivation = false;
+  };
+
+  services.openssh.enable = true;
+  services.postgresql.enable = true;
+# services.avahi.enable = true;
+
+  # Spotify
+  networking.firewall = { allowedTCPPorts = [ 57621 ]; allowedUDPPorts = [ 57621 ]; };
+}
