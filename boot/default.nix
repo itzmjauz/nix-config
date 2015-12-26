@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
-  bootUUID = "F617-7693";
-  poolUUID = "971fbcc3-a104-42d0-93ad-566f21234b53";
+  bootUUID = "AE75-9210";
+  poolUUID = "4ddb1208-d1c9-4e72-bfdc-da4a439ed6d6";
 in
 {
   imports = [ ./systemd-zfs-generator ./gummibootr ];
