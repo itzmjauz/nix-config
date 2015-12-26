@@ -30,7 +30,7 @@ rec {
     };
   };
 
-  networking.hostName = "koala";
+  networking.hostName = "meerkat";
   networking.networkmanager.enable = true;
 
   hardware.pulseaudio.enable = true;
