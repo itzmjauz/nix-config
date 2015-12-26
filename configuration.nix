@@ -25,7 +25,7 @@ rec {
     xkbOptions = "compose:caps";
     displayManager.slim = {
       enable = true;
-      defaultUser = "nathan";
+      defaultUser = "itzmjauz";
       theme = ./slim-theme;
     };
   };
@@ -43,7 +43,7 @@ rec {
     };
   in {
     users.root = attrs;
-    extraUsers.nathan = attrs // {
+    extraUsers.itzmjauz = attrs // {
       isNormalUser = true;
       extraGroups = [ "wheel" "networkmanager" "docker" ];
     };
@@ -56,36 +56,11 @@ rec {
   };
 
   nix.nixPath = [
-   "nixpkgs=/home/nathan/src/github.com/NixOS/nixpkgs"
+   "nixpkgs=/home/itzmjauz/src/github.com/NixOS/nixpkgs"
    "nixos-config=/etc/nixos/configuration.nix"
   ];
 
   services.logind.extraConfig = "HandleLidSwitch=ignore\nHandlePowerKey=suspend";
-
-  services.openvpn.servers.client = {
-    autoStart = false;
-    config = ''
-      client
-      dev tun
-      proto udp
-      remote vpn.nathan7.eu 1194
-      nobind
-
-      persist-key
-      persist-tun
-
-      ca /home/nathan/.vpn/ca.crt
-      cert /home/nathan/.vpn/client.crt
-      key /home/nathan/.vpn/client.key
-
-      keepalive 10 120
-
-      cipher AES-256-CBC
-      comp-lzo
-
-      verb 4
-    '';
-  };
 
   hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
@@ -95,19 +70,10 @@ rec {
 
   services.physlock = {
     enable = true;
-    user = "nathan";
+    user = "itzmjauz";
   };
   security.setuidPrograms = [ "physlock" ];
 
-  nix.distributedBuilds = true;
-  nix.buildMachines = [{
-    hostName = "52.31.157.204";
-    sshUser = "nathan";
-    sshKey = "/home/nathan/.ssh/id_nix";
-    system = "i686-linux,x86_64-linux";
-    maxJobs = 20;
-    speedFactor = 16;
-  }];
   nix.useChroot = true;
   nix.chrootDirs = [ "/usr/bin/env=${pkgs.coreutils}/bin/env" ];
 
