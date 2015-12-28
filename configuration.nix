@@ -113,7 +113,4 @@ rec {
   services.openssh.enable = true;
   services.postgresql.enable = true;
 # services.avahi.enable = true;
-
-  # Spotify
-  networking.firewall = { allowedTCPPorts = [ 57621 ]; allowedUDPPorts = [ 57621 ]; };
 }
