@@ -11,7 +11,7 @@ rec {
   environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; let
     sshttp = pkgs.callPackage ./pkgs/sshttp {};
-  in [ fish chromium spotify neovim terminator nix-repl silver-searcher which fortune mosh compton git mpv pass gnupg sshttp steam ctags editorconfig-core-c nodejs alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq xonotic git-hub youtube-dl ];
+  in [ nodejs fish chromium neovim terminator nix-repl silver-searcher which mosh compton git pass gnupg sshttp ctags editorconfig-core-c alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq git-hub pkgs.boot libreoffice atom xorg.xbacklight skype busybox spotify steam ];
 
   services.xserver = {
     enable = true;
