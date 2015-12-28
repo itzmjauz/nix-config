@@ -89,6 +89,7 @@ rec {
 
   services.xserver.displayManager.sessionCommands = builtins.concatStringsSep "\n" [
     "${pkgs.terminator}/bin/terminator -e \"fish -c 'while true; panther; end'\" &"
+    "${pkgs.terminator}/bin/terminator -e \"fish -c 'while true; badaluma; end'\" &"
     "${pkgs.networkmanagerapplet}/bin/nm-applet &"
   ];
 
