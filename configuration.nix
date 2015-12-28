@@ -8,10 +8,10 @@ rec {
 
   boot.kernelPackages = pkgs.linuxPackages_4_3;
 
-  environment.variables.EDITOR = "vim";
+  environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; let
     sshttp = pkgs.callPackage ./pkgs/sshttp {};
-  in [ fish chromium spotify vim terminator nix-repl silver-searcher which fortune mosh compton git mpv pass gnupg sshttp steam ctags editorconfig-core-c nodejs alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq xonotic git-hub youtube-dl ];
+  in [ fish chromium spotify neovim terminator nix-repl silver-searcher which fortune mosh compton git mpv pass gnupg sshttp steam ctags editorconfig-core-c nodejs alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq xonotic git-hub youtube-dl ];
 
   services.xserver = {
     enable = true;
