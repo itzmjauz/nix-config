@@ -35,7 +35,7 @@ rec {
 
   hardware.pulseaudio.enable = true;
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.chromium.enableAdobeFlash = true;
+  nixpkgs.config.chromium.enablePepperFlash = true;
 
   users = let
     attrs = {
