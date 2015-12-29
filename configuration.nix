@@ -116,6 +116,6 @@ rec {
 # services.avahi.enable = true;
   # graphics
   hardware.bumblebee.enable = true;
-  hardware.bumblebee.driver = "nouveau";
-  services.xserver.videoDrivers = [ "nouveau" "intel" ];
+  hardware.bumblebee.driver = "nvidia";
+  services.xserver.videoDrivers = [ "nvidia" "intel" ];
 }
