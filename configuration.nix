@@ -116,5 +116,5 @@ rec {
   # graphics
   hardware.bumblebee.enable = true;
   hardware.bumblebee.driver = "nvidia";
-  services.xserver.videoDrivers = [ "nvidia" "intel" ];
+  services.xserver.videoDrivers = [ "intel" ];
 }
