@@ -83,8 +83,8 @@ rec {
     enable = true;
     latitude = "52.314487";
     longitude = "4.64127";
-    temperature.night = 3000;
-    brightness.night = "0.7";
+    temperature.night = 6000;
+    brightness.night = "1";
     extraOptions = [ "-r" ];
   };
 
