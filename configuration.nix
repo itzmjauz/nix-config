@@ -110,7 +110,7 @@ rec {
     socketActivation = false;
   };
 
-  services.openssh.enable = true;
+  services.openssh.enable = false;
   services.postgresql.enable = true;
 # services.avahi.enable = true;
   # graphics
