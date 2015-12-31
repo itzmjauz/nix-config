@@ -117,4 +117,5 @@ rec {
   hardware.bumblebee.enable = true;
   hardware.bumblebee.driver = "nvidia";
   services.xserver.videoDrivers = [ "intel" ];
+  nixpkgs.config.steam.primus = true;
 }
