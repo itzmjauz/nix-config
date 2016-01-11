@@ -11,7 +11,7 @@ rec {
   environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; let
     sshttp = pkgs.callPackage ./pkgs/sshttp {};
-  in [ evince pythonPackages.pgcli psmisc arandr thunderbird mpv transmission glxinfo xonotic ghc vim nodejs fish chromium neovim terminator nix-repl silver-searcher which mosh compton git pass gnupg sshttp ctags editorconfig-core-c alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq git-hub pkgs.boot libreoffice atom skype wget spotify steam ];
+  in [ nixops evince pythonPackages.pgcli psmisc arandr thunderbird mpv transmission glxinfo xonotic ghc vim nodejs fish chromium neovim terminator nix-repl silver-searcher which mosh compton git pass gnupg sshttp ctags editorconfig-core-c alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq git-hub pkgs.boot libreoffice atom skype wget spotify steam ];
 
   services.xserver = {
     enable = true;
