@@ -118,4 +118,7 @@ rec {
   hardware.bumblebee.driver = "nvidia";
   services.xserver.videoDrivers = [ "intel" ];
   nixpkgs.config.steam.primus = true;
+
+  # try to fix chromecast stuff
+  networking.firewall.enable = false;
 }
