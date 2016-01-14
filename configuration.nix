@@ -104,15 +104,15 @@ rec {
     "vt.default_blu=0x42,0x2f,0x00,0x00,0xd2,0x82,0x98,0xd5,0x36,0x16,0x75,0x83,0x96,0xc4,0xa1,0xe3"
   ];
 
-  virtualisation.docker = {
-    enable = true;
-    storageDriver = "zfs";
-    socketActivation = false;
-  };
+  # virtualisation.docker = {
+    #  enable = true;
+    #  storageDriver = "zfs";
+    # socketActivation = false;
+  # };
 
   services.openssh.enable = false;
-  services.postgresql.enable = true;
-# services.avahi.enable = true;
+  # services.postgresql.enable = true;
+  # services.avahi.enable = true;
   # graphics
   hardware.bumblebee.enable = true;
   hardware.bumblebee.driver = "nvidia";
