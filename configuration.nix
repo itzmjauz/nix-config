@@ -4,9 +4,9 @@ rec {
     ./boot
     <nixpkgs/nixos/modules/profiles/all-hardware.nix>
     <nixpkgs/nixos/modules/config/fonts/fontconfig-ultimate.nix>
+    ./kernel.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_4_3;
 
   environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; let
