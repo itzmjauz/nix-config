@@ -55,6 +55,8 @@ rec {
     fonts = with pkgs; [ source-code-pro carlito ];
   };
 
+  nix.binaryCaches = [ "https://code.nathan7.eu/hydra/" ]; nix.binaryCachePublicKeys = [ "colossus.nathan7.eu:4iYLGVtL9WTE0OXgPQgQex0BIYopHxFuIYTERQ0dhCc=" ];
+
   nix.nixPath = [
    "nixpkgs=/home/itzmjauz/src/github.com/NixOS/nixpkgs"
    "nixos-config=/etc/nixos/configuration.nix"
