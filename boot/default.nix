@@ -12,7 +12,7 @@ in
     "/" = {
       device = "storage/nixos";
       fsType = "zfs";
-      options = "zfsutil";
+      options = [ "zfsutil" ];
     };
 
     "/boot" = {
