@@ -6,13 +6,13 @@ in
 {
   imports = let
     pkgs = import <nixpkgs> {};
-    systemd-zfs-generator = pkgs.fetchcode {
-      repo = "systemd-zfs-generator";
+    systemd-zfs-generator = pkgs.fetchgit {
+      url = "https://code.nathan7.eu/nathan7/systemd-zfs-generator";
       rev = "80b3a2daf23a0d9abd2e1b1642d1064a7f875397";
       sha256 = "0qm7cvd91pj4q7v7yjzr2wqqdnzm6iqkjipd63k4676hjcmlkmfy";
     };
-    gummibootr = pkgs.fetchcode {
-      repo = "gummibootr";
+    gummibootr = pkgs.fetchgit {
+      url = "https://code.nathan7.eu/nathan7/gummibootr";
       rev = "826cba3609459deeef4c34f126135118e79b2c55";
       sha256 = "0bjjc8s2ss2wh260hqzimba6swy0jw0szpj91pv3sq7dzbpradsm";
     };
