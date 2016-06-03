@@ -13,8 +13,8 @@ in
     };
     gummibootr = pkgs.fetchgit {
       url = "https://code.nathan7.eu/nathan7/gummibootr";
-      rev = "826cba3609459deeef4c34f126135118e79b2c55";
-      sha256 = "0bjjc8s2ss2wh260hqzimba6swy0jw0szpj91pv3sq7dzbpradsm";
+      rev = "0e48da9fb9a7370f016f67a0c829da8ff45fe224";
+      sha256 = "1i3a52gz9yyc17gmmrhbcz995xzczafsgkyczw751zdhylafcdmr";
     };
   in builtins.map (drv: drv.outPath) [ systemd-zfs-generator gummibootr ];
 
