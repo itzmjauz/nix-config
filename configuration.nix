@@ -13,7 +13,7 @@ rec {
   environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; let
     gtk-icons = pkgs.hicolor_icon_theme;
-  in [ xorg.xbacklight python jdk aws nixops evince pythonPackages.pgcli psmisc arandr thunderbird mpv transmission glxinfo xonotic ghc vim vimsauce nodejs fish chromium neovim terminator nix-repl silver-searcher which mosh compton git pass gnupg ctags editorconfig-core-c alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq git-hub pkgs.boot libreoffice atom skype wget spotify steam gtk-icons ];
+  in [ xorg.xbacklight python jdk aws nixops evince pythonPackages.pgcli psmisc arandr thunderbird mpv transmission glxinfo xonotic ghc vim vimsauce nodejs fish chromium neovim terminator nix-repl silver-searcher which mosh compton git pass gnupg ctags editorconfig-core-c alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq git-hub pkgs.boot libreoffice atom skype wget spotify steam gtk-icons awesomesauce ];
 
   services.xserver = {
     enable = true;
