@@ -7,7 +7,6 @@ rec {
     ../kernel.nix
   ];
 
-
   environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; let
     gtk-icons = pkgs.hicolor_icon_theme;
@@ -53,7 +52,6 @@ rec {
       extraGroups = [ "wheel" "networkmanager" "docker" ];
     };
   };
-
 
   fonts = {
     enableFontDir = true;
