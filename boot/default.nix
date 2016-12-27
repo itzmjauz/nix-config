@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
-  bootUUID = "AE75-9210";
-  poolUUID = "4ddb1208-d1c9-4e72-bfdc-da4a439ed6d6";
+  bootUUID = "9408-6ED4";
+  poolUUID = "aeb5b753-76ac-4170-a98b-b35b7b420ab5";
 in
 {
   imports = let

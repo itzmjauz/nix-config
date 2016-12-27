@@ -23,7 +23,7 @@ let
       }
     ];
   };
-  linuxPackages = pkgs.linuxPackagesFor linux linuxPackages;
+  linuxPackages = pkgs.linuxPackagesFor linux;
 in
 {
   boot.kernelPackages = linuxPackages;
