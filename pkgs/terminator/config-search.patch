@@ -1,0 +1,26 @@
+diff -ru a/terminatorlib/util.py b/terminatorlib/util.py
+--- a/terminatorlib/util.py	2015-09-08 17:27:00.000000000 +0200
++++ b/terminatorlib/util.py	2016-02-22 08:28:22.840002636 +0100
+@@ -179,13 +179,17 @@
+ def get_config_dir():
+     """Expand all the messy nonsense for finding where ~/.config/terminator
+     really is"""
+-    try:
+-        configdir = os.environ['XDG_CONFIG_HOME']
+-    except KeyError:
+-        configdir = os.path.join(os.path.expanduser('~'), '.config')
++
++    configdir = os.environ.get('XDG_CONFIG_HOME', os.path.expanduser('~/.config'))
++    configdirs = os.environ.get('XDG_CONFIG_DIRS', None)
++    configdirs = configdirs.split(':')
++
++    for configdir in [ configdir ] + configdirs + [ "/etc/xdg" ]:
++        configdir = os.path.join(configdir, 'terminator')
++        if os.path.exists(configdir): break
+ 
+     dbg('Found config dir: %s' % configdir)
+-    return(os.path.join(configdir, 'terminator'))
++    return configdir
+ 
+ def dict_diff(reference, working):
+     """Examine the values in the supplied working set and return a new dict
