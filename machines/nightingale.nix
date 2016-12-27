@@ -11,7 +11,7 @@ rec {
   environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; let
     gtk-icons = pkgs.hicolor_icon_theme;
-  in [ xorg.xbacklight python jdk aws nixops evince pythonPackages.pgcli psmisc arandr mpv transmission glxinfo xonotic ghc vim vimsauce nodejs fish chromium neovim terminator terminatorsauce nix-repl silver-searcher which mosh compton git pass gnupg ctags editorconfig-core-c alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq git-hub pkgs.boot libreoffice atom skype wget spotify steam gtk-icons awesomesauce ];
+  in [ xorg.xbacklight python jdk aws nixops evince pythonPackages.pgcli psmisc arandr mpv transmission glxinfo xonotic ghc vim vimsauce nodejs fish chromium neovim terminator terminatorsauce nix-repl silver-searcher which mosh compton git pass gnupg ctags editorconfig-core-c alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq git-hub pkgs.boot libreoffice skype wget spotify steam gtk-icons awesomesauce ];
 
   services.xserver = {
     enable = true;
@@ -109,10 +109,7 @@ rec {
   # services.postgresql.enable = true;
   # services.avahi.enable = true;
   # graphics
-  hardware.bumblebee.enable = true;
-  hardware.bumblebee.driver = "nvidia";
   services.xserver.videoDrivers = [ "intel" ];
-  nixpkgs.config.steam.primus = true;
 
   # try to fix chromecast stuff
   networking.firewall.enable = false;
