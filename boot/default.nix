@@ -5,7 +5,7 @@ let
 in
 {
   imports = let
-    pkgs = import <nixpkgs> {};
+    pkgs = import <nixpkgs> { config.packageOverrides = import ../pkgs; };
     systemd-zfs-generator = pkgs.fetchgit {
       url = "https://code.nathan7.eu/nathan7/systemd-zfs-generator";
       rev = "80b3a2daf23a0d9abd2e1b1642d1064a7f875397";
