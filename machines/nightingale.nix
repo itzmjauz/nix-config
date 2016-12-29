@@ -92,6 +92,7 @@ rec {
   services.xserver.displayManager.sessionCommands = builtins.concatStringsSep "\n" [
   #  "${pkgs.terminator}/bin/terminator -e \"fish -c 'while true; panther; end'\" &"
     "${pkgs.networkmanagerapplet}/bin/nm-applet &"
+    "${pkgs.slack}/bin/slack &"
   ];
 
   services.kmscon = {
