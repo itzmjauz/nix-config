@@ -35,9 +35,9 @@ in toConfig {
     group_all = null;
     edit_window_title = null;
     new_window = "<Shift><Super>Return";
-    next_tab = "<Shift>Down";
+    next_tab = "<Shift>Right";
     paste = "<Shift>Insert";
-    prev_tab = "<Shift>Up";
+    prev_tab = "<Shift>Left";
   };
   layouts.default = {
     child1 = {
