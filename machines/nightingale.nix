@@ -64,20 +64,12 @@ rec {
    "nixos-config=/etc/nixos/configuration.nix"
   ];
 
-  services.logind.extraConfig = "HandleLidSwitch=ignore\nHandlePowerKey=suspend";
-
   hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
 
   time.timeZone = "Europe/Amsterdam";
   i18n.defaultLocale = "en_GB.UTF-8";
-
-  services.physlock = {
-    enable = true;
-    user = "itzmjauz";
-  };
-  security.setuidPrograms = [ "physlock" ];
-
+  
   networking.usePredictableInterfaceNames = false; # fuck that noise
 
   services.redshift = {
@@ -92,7 +84,7 @@ rec {
   services.xserver.displayManager.sessionCommands = builtins.concatStringsSep "\n" [
   #  "${pkgs.terminator}/bin/terminator -e \"fish -c 'while true; panther; end'\" &"
     "${pkgs.networkmanagerapplet}/bin/nm-applet &"
-    "${pkgs.slack}/bin/slack &"
+    "${pkgs.slack}/bin/slack -u &"
   ];
 
   services.kmscon = {
