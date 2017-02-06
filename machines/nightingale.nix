@@ -10,7 +10,7 @@ rec {
   environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; let
     gtk-icons = pkgs.hicolor_icon_theme;
-  in [ slack clojure xboxdrv nox xcompmgr acpi xorg.xbacklight python jdk aws nixops evince pythonPackages.pgcli psmisc arandr mpv transmission glxinfo xonotic ghc vim vimsauce nodejs fish chromium neovim terminator terminatorsauce nix-repl silver-searcher which mosh compton git pass gnupg ctags editorconfig-core-c alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq git-hub pkgs.boot libreoffice skype wget spotify steam gtk-icons awesomesauce ];
+  in [ transgui powertop openbox slack clojure xboxdrv nox xcompmgr acpi xorg.xbacklight python jdk aws nixops evince pythonPackages.pgcli psmisc arandr mpv transmission glxinfo xonotic ghc vim vimsauce nodejs fish chromium neovim terminator terminatorsauce nix-repl silver-searcher which mosh compton git pass gnupg ctags editorconfig-core-c alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq git-hub pkgs.boot libreoffice skype wget spotify steam gtk-icons awesomesauce ];
 
   services.xserver = {
     enable = true;
@@ -42,7 +42,7 @@ rec {
 
   users = let
     attrs = {
-      openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDG9SzR0M6zpb8Jy0/zRLwMeuJEjrAYTtOWzrt7HGgHBth/uuMcydYUAnYAj8L9wMyGfNnCdwbx+PAm86cFHqrpVVlUkGk3JxmL+SrNwJ8DcYbvgGIKuIesc2eFfkoYo/LVBTxUpkwuINwyL+M1h7IK9b6SQ2j7DLelF2svQtS4OhNpl/sDf9UDBatejel4lFWxCEh0Bre8Y0WOukb866W5c9q/dJr5Bs6OA/CKES1YhQUw/g3PX3+XcOQ6fpfZhEIAZJvkoBUfh1N9TUOdQ4rwvFx3inRYpIzbiA+QlGnyE1WHcE+FY0FlKU/IocayInkYvWwwGJusx0L7O1IdqzIl nathan@koala" ];
+      openssh.authorizedKeys.keys = ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDxqZL1HZNdc1oYnRzU/JICU7h8r6ueqFQdlk8lLMuDMvTKnbpOHaqcWshgTcfq04SCvylEEQggj9ZINEONlVa+itWtfRhbx90zRiYjerN9RttnXPQEecvwIjQ8ybw+KdsfvorCCXEClixzSimZckyXb0Q18nAR6pnAM+Cya8ZDetL/LlNKN+yolST1ATxWMQrVK5+qbrd6foAS/I2o8SFEsNOw/+8oCbCNkF3kE1hoPWIIO3bFrDW/3CFDZWQHaD058jfzovSz+k5HCFNCVYVwHl7HLNGHKeYgN56GAWU1qBmOJhKYVj7xIKVK3F1y9Ccror9Q7tDiQoRe5b+NzRbX itzmjauz@nightingale"  ];
     };
   in {
     users.root = attrs;
