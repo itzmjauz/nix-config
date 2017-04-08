@@ -26,6 +26,7 @@ let
   linuxPackages = pkgs.linuxPackagesFor linux;
 in
 {
+  boot.kernelModules = ["msr"];
   boot.kernelPackages = linuxPackages;
   boot.kernelParams = [ "elevator=bfq" ];
 }

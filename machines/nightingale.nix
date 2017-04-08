@@ -10,7 +10,7 @@ rec {
   environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; let
     gtk-icons = pkgs.hicolor_icon_theme;
-  in [ transgui powertop openbox slack clojure xboxdrv nox xcompmgr acpi xorg.xbacklight python jdk aws nixops evince pythonPackages.pgcli psmisc arandr mpv transmission glxinfo xonotic ghc vim vimsauce nodejs fish chromium neovim terminator terminatorsauce nix-repl silver-searcher which mosh compton git pass gnupg ctags editorconfig-core-c alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq git-hub pkgs.boot libreoffice skype wget spotify steam gtk-icons awesomesauce ];
+  in [ gcc firefox eclipses.eclipse-sdk-46 transgui powertop openbox slack clojure xboxdrv nox xcompmgr acpi xorg.xbacklight python jdk aws nixops evince pythonPackages.pgcli psmisc arandr mpv transmission glxinfo xonotic ghc vim vimsauce nodejs fish chromium neovim terminator terminatorsauce nix-repl silver-searcher which mosh compton git pass gnupg ctags editorconfig-core-c alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq git-hub pkgs.boot libreoffice skype wget spotify steam gtk-icons awesomesauce ];
 
   services.xserver = {
     enable = true;
@@ -59,10 +59,9 @@ rec {
     fonts = with pkgs; [ source-code-pro carlito ];
   };
 
-  nix.nixPath = [
-   "nixpkgs=/home/itzmjauz/src/github.com/NixOS/nixpkgs"
-   "nixos-config=/etc/nixos/configuration.nix"
-  ];
+  #nix.nixPath = [
+    # "nixos-config=/etc/nixos/configuration.nix"
+    #];
 
   hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
