@@ -75,6 +75,8 @@ let &shiftwidth = indent
 set autoindent
 set smartindent
 set expandtab
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
+set guicursor=
 
 " guess indentation settings on file load
 autocmd BufReadPost * :GuessIndent

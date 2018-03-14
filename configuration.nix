@@ -1,5 +1,6 @@
+{ lib, ... }:
 rec {
-#  imports = [ /etc/nixos/modules (/etc/nixos/machines + "/${networking.hostName}.nix") ];
-  imports = ["/etc/nixos/modules/" "/etc/nixos/machines/nightingale.nix"];
-  networking.hostName = builtins.readFile /etc/hostname;
+ imports = ["/etc/nixos/modules/" "/etc/nixos/machines/nightingale.nix"];
+ # networking.hostName = lib.removeSuffix "\n" (builtins.readFile /etc/hostname);
+ #networking.hostName = "nightingale";
 }
