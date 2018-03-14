@@ -1,6 +1,6 @@
 { neovim, man, enableDebugging }:
 neovim.overrideDerivation (drv: {
-  postInstall = drv.postInstall + ''
+  postInstall = ''
     substituteInPlace $out/share/nvim/runtime/autoload/man.vim --replace /usr/bin/man ${man}/bin/man
 
     cat > $out/bin/nvimdiff <<EOF
