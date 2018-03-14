@@ -1,4 +1,5 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
+with lib;
 rec {
   imports = [
     ../boot
@@ -10,10 +11,11 @@ rec {
   environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; let
     gtk-icons = pkgs.hicolor_icon_theme;
-  in [ gcc firefox eclipses.eclipse-sdk-46 transgui powertop openbox slack clojure xboxdrv nox xcompmgr acpi xorg.xbacklight python jdk aws nixops evince pythonPackages.pgcli psmisc arandr mpv transmission glxinfo xonotic ghc vim vimsauce nodejs fish chromium neovim terminator terminatorsauce nix-repl silver-searcher which mosh compton git pass gnupg ctags editorconfig-core-c alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq git-hub pkgs.boot libreoffice skype wget spotify steam gtk-icons awesomesauce ];
+  in [ nixops docker spotify gdb pgcli mongodb phantomjs ruby msf qemu gcc firefox eclipses.eclipse-sdk-46 transgui powertop openbox slack clojure xboxdrv nox xcompmgr acpi xorg.xbacklight python jdk aws nixops evince psmisc arandr mpv transmission glxinfo xonotic ghc vim vimsauce nodejs fish chromium neovim terminator terminatorsauce nix-repl silver-searcher which mosh compton git pass gnupg ctags editorconfig-core-c alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq git-hub pkgs.boot libreoffice skype wget steam gtk-icons awesomesauce ];
 
   services.xserver = {
     enable = true;
+    plainX = true;
     windowManager.awesome.enable = true;
     desktopManager.xterm.enable = false;
     synaptics = {
@@ -29,11 +31,16 @@ rec {
     };
   };
 
+  services.printing.enable = true;
+  services.printing.drivers = [ pkgs.splix ];
+  systemd.coredump.enable = true;
+
   networking.networkmanager.enable = true;
 
   hardware.pulseaudio.enable = true;
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.chromium.enablePepperFlash = true;
+  #nixpkgs.config.chromium.enablePepperPDF = true;
 
   programs.fish.enable = true;
   programs.fish.interactiveShellInit = ''
@@ -51,6 +58,11 @@ rec {
       isNormalUser = true;
       extraGroups = [ "wheel" "networkmanager" "docker" ];
     };
+    extraUsers.guest = {
+      isNormalUser = true;
+      extraGroups = [ "networkmanager" ];
+      password = "hunter2";
+    };
   };
 
   fonts = {
@@ -59,8 +71,10 @@ rec {
     fonts = with pkgs; [ source-code-pro carlito ];
   };
 
-  #nix.nixPath = [
-    # "nixos-config=/etc/nixos/configuration.nix"
+  # nix.nixPath = pkgs.lib.mkBefore [
+  
+    #"nixos-config=/etc/nixos/configuration.nix"
+    #  "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs"
     #];
 
   hardware.opengl.driSupport32Bit = true;
@@ -80,6 +94,10 @@ rec {
     extraOptions = [ "-r" ];
   };
 
+  services.mongodb = {
+    enable = false;
+  };
+
   services.xserver.displayManager.sessionCommands = builtins.concatStringsSep "\n" [
   #  "${pkgs.terminator}/bin/terminator -e \"fish -c 'while true; panther; end'\" &"
     "${pkgs.networkmanagerapplet}/bin/nm-applet &"
@@ -96,11 +114,10 @@ rec {
     "vt.default_blu=0x42,0x2f,0x00,0x00,0xd2,0x82,0x98,0xd5,0x36,0x16,0x75,0x83,0x96,0xc4,0xa1,0xe3"
   ];
 
-  # virtualisation.docker = {
-    #  enable = true;
-    #  storageDriver = "zfs";
-    # socketActivation = false;
-  # };
+   virtualisation.docker = {
+      enable = true;
+      storageDriver = "zfs";
+   };
 
   services.openssh.enable = true;
   # services.postgresql.enable = true;
