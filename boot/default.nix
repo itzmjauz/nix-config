@@ -39,8 +39,8 @@ in
   };
 
   boot = {
-    loader.gummiboot = {
-      enable = true;
+    loader = {
+      systemd-boot.enable = true;
       timeout = 0;
     };
 
