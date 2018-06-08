@@ -1,18 +1,27 @@
 local awful = require('awful')
 local wibox = require('wibox')
-local wallpaper = require('wallpaper')
+local layouts = require('layouts')
+local beautiful = require('beautiful')
+local gears = require('gears')
+
 local taglistbuttons = require('bindings.global.tags').buttons
 local tasklistbuttons = require('bindings.global.tasks').buttons
 
 local clock = awful.widget.textclock('%Y-%b%m-%a%d %H:%M:%S', 1)
 
-
-local tasklists = require('wiboxes.tasklists')
-
 awful.screen.connect_for_each_screen(function(s)
-
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
-    wallpaper(s) -- set wallpaper
+    local function set_wallpaper(s)
+        if beautiful.wallpaper then
+            local wallpaper = beautiful.wallpaper
+            if type(wallpaper) == "function" then
+                wallpaper = wallpaper(s)
+            end
+            gears.wallpaper.maximized(wallpaper, s, true)
+        end
+    end
+   
+    set_wallpaper(s)
+    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, layouts[1])
     s.mypromptbox = awful.widget.prompt()
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglistbuttons)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklistbuttons)
@@ -38,4 +47,5 @@ awful.screen.connect_for_each_screen(function(s)
     layout:set_right(right_layout)
 
     s.mywibox:set_widget(layout)
+    screen.connect_signal("property::geometry", set_wallpaper)
 end)
