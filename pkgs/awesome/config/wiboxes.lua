@@ -1,35 +1,41 @@
 local awful = require('awful')
 local wibox = require('wibox')
+local wallpaper = require('wallpaper')
+local taglistbuttons = require('bindings.global.tags').buttons
+local tasklistbuttons = require('bindings.global.tasks').buttons
 
 local clock = awful.widget.textclock('%Y-%b%m-%a%d %H:%M:%S', 1)
 
-local wiboxes = {}
-local layoutboxes = {}
 
-local promptboxes = require('wiboxes.promptboxes')
-local taglists = require('wiboxes.taglists')
 local tasklists = require('wiboxes.tasklists')
 
-for s = 1, screen.count() do
-    layoutboxes[s] = awful.widget.layoutbox(s)
-    wiboxes[s] = awful.wibox({ position = 'top', screen = s })
+awful.screen.connect_for_each_screen(function(s)
+
+    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    wallpaper(s) -- set wallpaper
+    s.mypromptbox = awful.widget.prompt()
+    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglistbuttons)
+    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklistbuttons)
+
+    s.mylayoutbox = awful.widget.layoutbox(s)
+    s.mywibox = awful.wibar({ position = "top", screen = s })
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
-    left_layout:add(taglists[s])
-    left_layout:add(promptboxes[s])
+    left_layout:add(s.mytaglist)
+    left_layout:add(s.mypromptbox)
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
-    if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(wibox.widget.systray())
     right_layout:add(clock)
-    right_layout:add(layoutboxes[s])
+    right_layout:add(s.mylayoutbox)
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
     layout:set_left(left_layout)
-    layout:set_middle(tasklists[s])
+    layout:set_middle(s.tasklists)
     layout:set_right(right_layout)
 
-    wiboxes[s]:set_widget(layout)
-end
+    s.mywibox:set_widget(layout)
+end)

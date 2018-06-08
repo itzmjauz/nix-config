@@ -3,11 +3,10 @@ local awful = require('awful')
 local prefs = require('preferences')
 local modkey = prefs.modkey
 
-local promptbox = require('wiboxes.promptboxes')
 local keys = awful.util.table.join({}
   , awful.key({ modkey }, 'p', function ()
       awful.prompt.run( { prompt = 'pass ' }
-                      , promptbox[mouse.screen].widget
+                      , awful.screen.focused().mypromptbox.widget
                       , function (pass)
                           awful.util.spawn('pass -c ' .. pass)
                         end

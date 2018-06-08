@@ -10,6 +10,9 @@ awful.rules.rules = { { rule = { }
                                      , focus = awful.client.focus.filter
                                      , keys = require('bindings.client').keys
                                      , buttons = require('bindings.client').buttons
+                                     , raise = true
+                                     , screen = awful.screen.preferred
+                                     , placement = awful.placement.no_overlap+awful.placement.no_offscreen
                                      }
                       }
                     , { rule = { class = 'MPlayer' }
