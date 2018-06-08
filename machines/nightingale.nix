@@ -11,11 +11,14 @@ rec {
   environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; let
     gtk-icons = pkgs.hicolor_icon_theme;
-  in [ nixops docker spotify gdb pgcli mongodb phantomjs ruby msf qemu gcc firefox eclipses.eclipse-sdk-46 transgui powertop openbox slack clojure xboxdrv nox xcompmgr acpi xorg.xbacklight python jdk aws nixops evince psmisc arandr mpv transmission glxinfo xonotic ghc vim vimsauce nodejs fish chromium neovim terminator terminatorsauce nix-repl silver-searcher which mosh compton git pass gnupg ctags editorconfig-core-c alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq git-hub pkgs.boot libreoffice skype wget steam gtk-icons awesomesauce ];
+  in [ python36Packages.pip python36Packages.docker_compose nixops gdb pgcli mongodb ruby msf qemu gcc powertop slack clojure xboxdrv nox xcompmgr acpi xorg.xbacklight python jdk aws evince psmisc arandr mpv transmission glxinfo ghc vim vimsauce nodejs fish chromium neovim terminator terminatorsauce nix-repl silver-searcher which mosh compton git pass gnupg ctags editorconfig-core-c alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq git-hub pkgs.boot libreoffice wget gtk-icons awesomesauce ];
+
+   nixpkgs.config.permittedInsecurePackages = [
+     "mono-4.0.4.1"
+   ];
 
   services.xserver = {
     enable = true;
-    plainX = true;
     windowManager.awesome.enable = true;
     desktopManager.xterm.enable = false;
     synaptics = {
@@ -49,7 +52,6 @@ rec {
 
   users = let
     attrs = {
-      openssh.authorizedKeys.keys = ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDxqZL1HZNdc1oYnRzU/JICU7h8r6ueqFQdlk8lLMuDMvTKnbpOHaqcWshgTcfq04SCvylEEQggj9ZINEONlVa+itWtfRhbx90zRiYjerN9RttnXPQEecvwIjQ8ybw+KdsfvorCCXEClixzSimZckyXb0Q18nAR6pnAM+Cya8ZDetL/LlNKN+yolST1ATxWMQrVK5+qbrd6foAS/I2o8SFEsNOw/+8oCbCNkF3kE1hoPWIIO3bFrDW/3CFDZWQHaD058jfzovSz+k5HCFNCVYVwHl7HLNGHKeYgN56GAWU1qBmOJhKYVj7xIKVK3F1y9Ccror9Q7tDiQoRe5b+NzRbX itzmjauz@nightingale"  ];
     };
   in {
     users.root = attrs;
@@ -96,6 +98,10 @@ rec {
 
   services.mongodb = {
     enable = false;
+  };
+
+  services.resolved = {
+    enable = true;
   };
 
   services.xserver.displayManager.sessionCommands = builtins.concatStringsSep "\n" [
