@@ -4,21 +4,24 @@ rec {
   imports = [
     ../boot
     <nixpkgs/nixos/modules/profiles/all-hardware.nix>
-    <nixpkgs/nixos/modules/config/fonts/fontconfig-ultimate.nix>
+    #<nixpkgs/nixos/modules/config/fonts/fontconfig-ultimate.nix>
     ../kernel.nix
   ];
 
   environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; let
     gtk-icons = pkgs.hicolor_icon_theme;
-  in [ python36Packages.pip python36Packages.docker_compose nixops gdb pgcli mongodb ruby msf qemu gcc powertop slack clojure xboxdrv nox xcompmgr acpi xorg.xbacklight python jdk aws evince psmisc arandr mpv transmission glxinfo ghc vim vimsauce nodejs fish chromium neovim terminator terminatorsauce nix-repl silver-searcher which mosh compton git pass gnupg ctags editorconfig-core-c alsaUtils whois xorg.xf86inputsynaptics htop pv taskwarrior file gnome3.eog unzip jq git-hub pkgs.boot libreoffice wget gtk-icons awesomesauce ];
+  in [ lean vscode docker binutils-unwrapped patchelf glibc_multi python37Packages.capstone tcpdump valgrind xorg.libXxf86vm discord python37Packages.pip nixops gdb pgcli ruby msf qemu gcc powertop slack clojure xboxdrv nox xcompmgr acpi xorg.xbacklight python jdk aws evince psmisc arandr mpv transmission glxinfo ghc vim vimsauce nodejs fish chromium neovim terminator terminatorsauce silver-searcher which mosh compton git pass gnupg ctags editorconfig-core-c alsaUtils whois xorg.xf86inputsynaptics htop file gnome3.eog unzip git-hub pkgs.boot libreoffice wget gtk-icons awesomesauce ];
 
-   nixpkgs.config.permittedInsecurePackages = [
-     "mono-4.0.4.1"
-   ];
+  nixpkgs.config.permittedInsecurePackages = [
+   "mono-4.0.4.1"
+  ];
+  nixpkgs.config.allowUnsupportedSystem = true; 
+  #  system.stateVersion ="19.03";
 
   services.xserver = {
     enable = true;
+    #    plainX = true;
     windowManager.awesome.enable = true;
     desktopManager.xterm.enable = false;
     synaptics = {
@@ -27,23 +30,28 @@ rec {
       twoFingerScroll = true;
     };
     xkbOptions = "compose:caps";
-    displayManager.slim = {
+    displayManager.lightdm = {
       enable = true;
-      defaultUser = "itzmjauz";
-      theme = ../slim-theme;
+      #      defaultUser = "itzmjauz";
+      #theme = ../slim-theme;
     };
   };
 
   services.printing.enable = true;
-  services.printing.drivers = [ pkgs.splix ];
-  systemd.coredump.enable = true;
+  services.printing.drivers = [ pkgs.splix pkgs.cups];
+  systemd.targets.zfs = {
+    wantedBy = ["local-fs.target" "multi-user.target"];
+    wants = ["zfs-mount.service"];
+    before = ["local-fs.target" "multi-user.target" "sysinit.target"];
+  };
+  systemd.services.zfs-mount.requires = ["zfs-import.target"];
 
   networking.networkmanager.enable = true;
 
   hardware.pulseaudio.enable = true;
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.chromium.enablePepperFlash = true;
-  #nixpkgs.config.chromium.enablePepperPDF = true;
+  #nixpkgs.config.chromium.enableWideVine = true;
+
 
   programs.fish.enable = true;
   programs.fish.interactiveShellInit = ''
@@ -58,13 +66,13 @@ rec {
     defaultUserShell = "/run/current-system/sw/bin/fish";
     extraUsers.itzmjauz = attrs // {
       isNormalUser = true;
-      extraGroups = [ "wheel" "networkmanager" "docker" ];
+      extraGroups = [ "wheel" "networkmanager" "docker" "vboxusers" "libvirtd" ];
     };
-    extraUsers.guest = {
-      isNormalUser = true;
-      extraGroups = [ "networkmanager" ];
-      password = "hunter2";
-    };
+    #extraUsers.guest = {
+      #  isNormalUser = true;
+      #  extraGroups = [ "networkmanager" ];
+      #  password = "hunter2";
+      #};
   };
 
   fonts = {
@@ -73,11 +81,10 @@ rec {
     fonts = with pkgs; [ source-code-pro carlito ];
   };
 
-  # nix.nixPath = pkgs.lib.mkBefore [
-  
-    #"nixos-config=/etc/nixos/configuration.nix"
-    #  "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs"
-    #];
+  nix.nixPath = pkgs.lib.mkBefore [
+    "nixos-config=/etc/nixos/configuration.nix"
+    "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs"
+  ];
 
   hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
@@ -86,15 +93,6 @@ rec {
   i18n.defaultLocale = "en_GB.UTF-8";
   
   networking.usePredictableInterfaceNames = false; # fuck that noise
-
-  services.redshift = {
-    enable = true;
-    latitude = "52.314487";
-    longitude = "4.64127";
-    temperature.night = 6000;
-    brightness.night = "1";
-    extraOptions = [ "-r" ];
-  };
 
   services.mongodb = {
     enable = false;
@@ -120,17 +118,14 @@ rec {
     "vt.default_blu=0x42,0x2f,0x00,0x00,0xd2,0x82,0x98,0xd5,0x36,0x16,0x75,0x83,0x96,0xc4,0xa1,0xe3"
   ];
 
-   virtualisation.docker = {
-      enable = true;
-      storageDriver = "zfs";
-   };
-
   services.openssh.enable = true;
+  virtualisation.docker.enable = true;
+  virtualisation.libvirtd.enable = true;
+
   # services.postgresql.enable = true;
   # services.avahi.enable = true;
   # graphics
   services.xserver.videoDrivers = [ "intel" ];
 
   # try to fix chromecast stuff
-  networking.firewall.enable = true;
 }
