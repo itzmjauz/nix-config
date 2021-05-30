@@ -29,7 +29,6 @@ in
     })
     (neovim.override {
       configure = {
-        name = "neovim";
         packages.myPlugins = with pkgs.vimPlugins; {
           start = myVimPlugins;
 	  opt = [];
