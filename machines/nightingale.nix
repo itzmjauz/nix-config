@@ -6,12 +6,12 @@ rec {
     <nixpkgs/nixos/modules/profiles/all-hardware.nix>
     #<nixpkgs/nixos/modules/config/fonts/fontconfig-ultimate.nix>
     ../kernel.nix
-];
+  ];
 
   environment.variables.EDITOR = "vim";
   environment.systemPackages = with pkgs; let
       gtk-icons = pkgs.hicolor_icon_theme;
-    in [ neovim xxd nixops gdb msf gcc powertop clojure xcompmgr acpi xorg.xbacklight arandr ghc vim_configurable nodejs fish chromium terminator which mosh compton git pass gnupg ctags alsaUtils whois xorg.xf86inputsynaptics htop file gnome3.eog unzip git-hub pkgs.boot wget gtk-icons terminatorsauce awesomesauce ];
+    in [ xxd nixops gdb msf gcc powertop clojure xcompmgr acpi xorg.xbacklight arandr ghc vim_configurable nodejs fish chromium terminator which mosh compton git pass gnupg ctags alsaUtils whois xorg.xf86inputsynaptics htop file gnome3.eog unzip git-hub pkgs.boot wget gtk-icons terminatorsauce awesomesauce ];
 
   services.xserver = {
     enable = true;

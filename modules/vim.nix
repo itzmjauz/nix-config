@@ -27,14 +27,5 @@ in
       };
       vimrcConfig.customRC = builtins.readFile "/etc/nixos/pkgs/vim/init.vim";
     })
-    (neovim.override {
-      configure = {
-        packages.myPlugins = with pkgs.vimPlugins; {
-          start = myVimPlugins;
-	  opt = [];
-	};
-        customRC = builtins.readFile "/etc/nixos/pkgs/vim/init.vim";
-      };
-    })
   ];
 }
