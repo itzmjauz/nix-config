@@ -130,8 +130,10 @@ rec {
     chromium
     # web development
     nodejs
-    # programming / compilation
-    gdb gcc ghc clojure ctags
+    # programming / compilation / low-level development
+    gdb gcc ghc clojure ctags rustup python3
+    # package management 
+    rustup python38Packages.pip
     # development / editors / utility
     ctags git git-hub
     # offensive/defense pentesting tools
