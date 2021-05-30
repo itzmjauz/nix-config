@@ -9,9 +9,6 @@ rec {
   ];
 
   environment.variables.EDITOR = "vim";
-  environment.systemPackages = with pkgs; let
-      gtk-icons = pkgs.hicolor_icon_theme;
-    in [ xxd nixops gdb msf gcc powertop clojure xcompmgr acpi xorg.xbacklight arandr ghc vim_configurable nodejs fish chromium terminator which mosh compton git pass gnupg ctags alsaUtils whois xorg.xf86inputsynaptics htop file gnome3.eog unzip git-hub pkgs.boot wget gtk-icons terminatorsauce awesomesauce ];
 
   services.xserver = {
     enable = true;
@@ -115,5 +112,35 @@ rec {
   # graphics
   services.xserver.videoDrivers = [ "intel" ];
 
-  # try to fix chromecast stuff
+  # system base packages
+  environment.systemPackages = with pkgs; let
+    gtk-icons = pkgs.hicolor_icon_theme;
+  in [
+    # configs
+    terminatorsauce awesomesauce # terminator/awesome configs
+    # Deployment tools
+    nixops
+    # setup fundamentals
+    wget pkgs.boot acpi which xorg.xf86inputsynaptics powertop htop whois file
+    # screen settings/setup/utility
+    xcompmgr arandr xorg.xbacklight #backlight settings ( utilised through awesome configs as well )
+    # shell/terminals
+    fish terminator
+    # browser
+    chromium
+    # web development
+    nodejs
+    # programming / compilation
+    gdb gcc ghc clojure ctags
+    # development / editors / utility
+    ctags git git-hub
+    # offensive/defense pentesting tools
+    msf
+    # editor
+    vim_configurable
+    # ssh / utility
+    mosh
+    # utility
+    gtk-icons compton pass gnupg alsaUtils gnome3.eog unzip
+  ];
 }
