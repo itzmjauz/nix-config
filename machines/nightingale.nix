@@ -6,6 +6,10 @@ rec {
     <nixpkgs/nixos/modules/profiles/all-hardware.nix>
     #<nixpkgs/nixos/modules/config/fonts/fontconfig-ultimate.nix>
     ../kernel.nix
+    (fetchTarball {
+         url = "https://github.com/itzmjauz/nixos-declarative-fish-plugin-mgr/archive/refs/tags/0.0.5.tar.gz";
+         sha256 = "028liknkgzg8132xpyfj6xjqdv1vhr3k6i32ahmw93dwwkaw0p4g";
+      })
   ];
 
   environment.variables.EDITOR = "vim";
@@ -43,10 +47,15 @@ rec {
   #nixpkgs.config.chromium.enableWideVine = true;
 
 
-  programs.fish.enable = true;
-  programs.fish.interactiveShellInit = ''
-    source ${../modules/config.fish}
-  '';
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      source ${../modules/config.fish}
+    '';
+    plugins = [
+      "oh-my-fish/theme-agnoster"
+    ];
+  };
 
   users = let
     attrs = {
@@ -136,8 +145,8 @@ rec {
     rustup python38Packages.pip
     # development / editors / utility
     ctags git git-hub
-    # offensive/defense pentesting tools
-    msf
+    # offensive/defense pentesting toolsi [TODO Nikto is in unstable]
+    msf radare2 radare2-cutter nmap python38Packages.pwntools gobuster
     # editor
     vim_configurable
     # ssh / utility
