@@ -1,7 +1,8 @@
 {
   imports = [
     ./base.nix
-    ./steam.nix
+#    ./steam.nix
     ./dircolors.nix
+    ./vim.nix
   ];
 }

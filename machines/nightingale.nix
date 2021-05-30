@@ -6,18 +6,12 @@ rec {
     <nixpkgs/nixos/modules/profiles/all-hardware.nix>
     #<nixpkgs/nixos/modules/config/fonts/fontconfig-ultimate.nix>
     ../kernel.nix
-  ];
+];
 
-  environment.variables.EDITOR = "nvim";
+  environment.variables.EDITOR = "vim";
   environment.systemPackages = with pkgs; let
-    gtk-icons = pkgs.hicolor_icon_theme;
-  in [ lean vscode docker binutils-unwrapped patchelf glibc_multi python37Packages.capstone tcpdump valgrind xorg.libXxf86vm discord python37Packages.pip nixops gdb pgcli ruby msf qemu gcc powertop slack clojure xboxdrv nox xcompmgr acpi xorg.xbacklight python jdk aws evince psmisc arandr mpv transmission glxinfo ghc vim vimsauce nodejs fish chromium neovim terminator terminatorsauce silver-searcher which mosh compton git pass gnupg ctags editorconfig-core-c alsaUtils whois xorg.xf86inputsynaptics htop file gnome3.eog unzip git-hub pkgs.boot libreoffice wget gtk-icons awesomesauce ];
-
-  nixpkgs.config.permittedInsecurePackages = [
-   "mono-4.0.4.1"
-  ];
-  nixpkgs.config.allowUnsupportedSystem = true; 
-  #  system.stateVersion ="19.03";
+      gtk-icons = pkgs.hicolor_icon_theme;
+    in [ neovim xxd nixops gdb msf gcc powertop clojure xcompmgr acpi xorg.xbacklight arandr ghc vim_configurable nodejs fish chromium terminator which mosh compton git pass gnupg ctags alsaUtils whois xorg.xf86inputsynaptics htop file gnome3.eog unzip git-hub pkgs.boot wget gtk-icons terminatorsauce awesomesauce ];
 
   services.xserver = {
     enable = true;
@@ -37,14 +31,13 @@ rec {
     };
   };
 
-  services.printing.enable = true;
-  services.printing.drivers = [ pkgs.splix pkgs.cups];
   systemd.targets.zfs = {
     wantedBy = ["local-fs.target" "multi-user.target"];
     wants = ["zfs-mount.service"];
     before = ["local-fs.target" "multi-user.target" "sysinit.target"];
   };
   systemd.services.zfs-mount.requires = ["zfs-import.target"];
+  networking.firewall.enable = true;
 
   networking.networkmanager.enable = true;
 
@@ -94,10 +87,6 @@ rec {
   
   networking.usePredictableInterfaceNames = false; # fuck that noise
 
-  services.mongodb = {
-    enable = false;
-  };
-
   services.resolved = {
     enable = true;
   };
@@ -105,7 +94,7 @@ rec {
   services.xserver.displayManager.sessionCommands = builtins.concatStringsSep "\n" [
   #  "${pkgs.terminator}/bin/terminator -e \"fish -c 'while true; panther; end'\" &"
     "${pkgs.networkmanagerapplet}/bin/nm-applet &"
-    "${pkgs.slack}/bin/slack -u &"
+    #    "${pkgs.slack}/bin/slack -u &"
   ];
 
   services.kmscon = {
@@ -119,10 +108,9 @@ rec {
   ];
 
   services.openssh.enable = true;
-  virtualisation.docker.enable = true;
-  virtualisation.libvirtd.enable = true;
+  virtualisation.docker.enable = false;
 
-  # services.postgresql.enable = true;
+  # services.postgresql.enable = true
   # services.avahi.enable = true;
   # graphics
   services.xserver.videoDrivers = [ "intel" ];

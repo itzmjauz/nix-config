@@ -121,4 +121,4 @@ end
 
 alias zfs 'sudo zfs'
 alias zpool 'sudo zpool'
-alias vim 'nvim'
+#alias vim 'nvim'

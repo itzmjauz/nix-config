@@ -35,9 +35,10 @@ in
     };
 
     supportedFilesystems = [ "zfs" ];
-    initrd.luks.devices= {
-      name = "${poolUUID}";
-      device = "/dev/disk/by-uuid/${poolUUID}";
-    };
+    #initrd.luks.devices= {
+      #  name = "${poolUUID}";
+      #device = "/dev/disk/by-uuid/${poolUUID}";
+      #};
+    initrd.luks.devices."${poolUUID}".device = "/dev/disk/by-uuid/${poolUUID}";
   };
 }
