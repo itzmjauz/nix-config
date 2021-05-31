@@ -6,7 +6,12 @@ in
 {
   imports = let
     pkgs = import <nixpkgs> { config.packageOverrides = import ../pkgs; };
-  in builtins.map (drv: drv.outPath) [ ];
+    systemd-zfs-generator = pkgs.fetchgit {
+      url = "https://github.com/edef1c/systemd-zfs-generator";
+      rev = "4dbf1bc609b6f05b82ae0cbac734bf4bac9bdedb";
+      sha256 = "087vz3y96mypg7a41fm1zd8xkxkl9zbcm2b3lq9jyzjnd82g059c";
+    };
+  in builtins.map (drv: drv.outPath) [ systemd-zfs-generator ];
 
   networking.hostId = "a8c09ec5";
 
