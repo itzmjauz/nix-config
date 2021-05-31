@@ -27,8 +27,11 @@ rec {
     xkbOptions = "compose:caps";
     displayManager.lightdm = {
       enable = true;
-      #      defaultUser = "itzmjauz";
-      #theme = ../slim-theme;
+      greeters.mini = {
+        enable = true;
+        user = "itzmjauz";
+      };
+#      theme = ../slim-theme;
     };
   };
 
@@ -143,12 +146,12 @@ rec {
     gdb gcc ghc clojure ctags rustup python3
     # package management 
     rustup python38Packages.pip
-    # development / editors / utility
+    # development / utility
     ctags git git-hub
     # offensive/defense pentesting toolsi [TODO Nikto is in unstable]
     msf radare2 radare2-cutter nmap python38Packages.pwntools gobuster
     # editor
-    vim_configurable
+    vim_configurable kakoune
     # ssh / utility
     mosh
     # utility
