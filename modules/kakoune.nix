@@ -10,7 +10,7 @@ in
   environment.systemPackages = with pkgs; [
     (kakoune.override {
       configure = {
-        plugins = with pkgs.kakounePlugins; [ config parinfer-rust kak-lsp ];
+        plugins = with pkgs.kakounePlugins; [ config parinfer-rust kak-lsp kak-powerline kak-auto-pairs ];
       };
     })
   ];
