@@ -157,7 +157,7 @@ rec {
     # offensive/defense pentesting toolsi [TODO Nikto is in unstable]
     msf radare2 radare2-cutter nmap python38Packages.pwntools gobuster
     # editor, installed in their respective configs 
-    kak-lsp rust-analyzer rls # vim_configurable kakoune
+    kak-lsp rust-analyzer # vim_configurable kakoune
     # ssh / utility
     mosh
     # utility
