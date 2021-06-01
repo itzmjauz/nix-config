@@ -13,6 +13,12 @@ rec {
   ];
 
   environment.variables.EDITOR = "vim";
+  nix = { 
+    package = pkgs.nixFlakes; 
+    extraOptions = lib.optionalString 
+      (config.nix.package == pkgs.nixFlakes) 
+      "experimental-features = nix-command flakes"; 
+  };
 
   services.xserver = {
     enable = true;
@@ -150,8 +156,8 @@ rec {
     ctags git git-hub
     # offensive/defense pentesting toolsi [TODO Nikto is in unstable]
     msf radare2 radare2-cutter nmap python38Packages.pwntools gobuster
-    # editor
-    vim_configurable kakoune
+    # editor, installed in their respective configs 
+    kak-lsp # vim_configurable kakoune
     # ssh / utility
     mosh
     # utility
