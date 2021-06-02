@@ -37,7 +37,6 @@ local buttons = awful.util.table.join({}
       if client.focus then client.focus:raise() end
     end)
   )
-
 return { keys = keys
        , buttons = buttons
        }

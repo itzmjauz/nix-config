@@ -32,7 +32,7 @@ awful.screen.connect_for_each_screen(function(s)
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(s.mytaglist)
-    left_layout:add(s.mypromptbox)
+--    left_layout:add(s.mypromptbox)
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
@@ -40,10 +40,16 @@ awful.screen.connect_for_each_screen(function(s)
     right_layout:add(clock)
     right_layout:add(s.mylayoutbox)
 
+    -- Widgets that align to the middle
+    local middle_layout = wibox.layout.fixed.horizontal()
+    middle_layout:add(s.mytasklist)
+    middle_layout:add(s.mypromptbox)
+    middle_layout.expand = "outside"
+
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
     layout:set_left(left_layout)
-    layout:set_middle(s.tasklists)
+    layout:set_middle(middle_layout)
     layout:set_right(right_layout)
 
     s.mywibox:set_widget(layout)
