@@ -38,7 +38,7 @@ in toConfig {
     next_tab = "<Shift>Right";
     paste = "<Shift>Insert";
     prev_tab = "<Shift>Left";
-    next_profile = <Shift><Ctrl>P;
+    next_profile = "<Shift><Ctrl>Right";
   };
   layouts.default = {
     child1 = {
