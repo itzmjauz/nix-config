@@ -249,6 +249,7 @@ nop %sh{
 
 # enable kak-lsp globally
 lsp-enable
+lsp-auto-hover-enable
 
 # ###
 # Experimental Extensions
