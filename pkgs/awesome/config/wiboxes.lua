@@ -17,6 +17,7 @@ awful.screen.connect_for_each_screen(function(s)
                 wallpaper = wallpaper(s)
             end
             gears.wallpaper.maximized(wallpaper, s, true)
+            gears.wallpaper.maximized('/etc/nixos/pkgs/awesome/config/nixos-bg.png', s, true)
         end
     end
    
