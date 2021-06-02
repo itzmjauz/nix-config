@@ -2,7 +2,7 @@
 
 local theme = {}
 
-theme.font          = 'Source Code Pro 9'
+theme.font          = 'Source Code Pro 11'
 
 theme.bg_normal     = '#002b36'
 theme.bg_focus      = '#073642'
