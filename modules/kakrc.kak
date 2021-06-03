@@ -186,8 +186,8 @@ hook global WinSetOption filetype=rust %{
     set buffer indentwidth 4
 
     # rust code uses 120-width lines
-    add-highlighter buffer/ wrap -word -width 120
-    set buffer autowrap_column 120
+    add-highlighter buffer/ wrap -word -width 150
+    set buffer autowrap_column 150
 
     # the default auto-pairs pair list includes the single quote ', which is not usually paired in
     # Rust
