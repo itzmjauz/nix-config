@@ -2,22 +2,53 @@
 
 local theme = {}
 
+theme.colors = {}
+theme.colors.base03  = "#002b36"
+theme.colors.base02  = "#073642"
+theme.colors.base01  = "#586e75"
+theme.colors.base00  = "#657b83"
+theme.colors.base0   = "#839496"
+theme.colors.base1   = "#93a1a1"
+theme.colors.base2   = "#eee8d5"
+theme.colors.base3   = "#fdf6e3"
+theme.colors.yellow  = "#b58900"
+theme.colors.orange  = "#cb4b16"
+theme.colors.red     = "#dc322f"
+theme.colors.magenta = "#d33682"
+theme.colors.violet  = "#6c71c4"
+theme.colors.blue    = "#268bd2"
+theme.colors.cyan    = "#2aa198"
+theme.colors.green   = "#859900"
+
+-- {{{ Styles
 theme.font          = 'Source Code Pro 11'
 
-theme.bg_normal     = '#002b36'
-theme.bg_focus      = '#073642'
-theme.bg_urgent     = '#cb4b16'
-theme.bg_minimize   = '#002b36'
 
-theme.fg_normal     = '#839496'
-theme.fg_focus      = '#93a1a1'
-theme.fg_urgent     = '#93a1a1'
-theme.fg_minimize   = '#657b83'
+-- {{{ Colors
+theme.bg_normal  = theme.colors.base02
+theme.bg_focus   = theme.colors.base2
+theme.bg_urgent  = theme.colors.base2
+theme.bg_systray = theme.bg_normal
 
-theme.border_width  = '1'
-theme.border_normal = '#000000'
-theme.border_focus  = '#073642'
-theme.border_marked = '#d33682'
+theme.fg_normal  = theme.colors.base3
+theme.fg_focus   = theme.colors.orange
+theme.fg_urgent  = theme.colors.red
+-- }}}
+
+-- {{{ Borders
+theme.border_width  = "1"
+theme.border_normal = theme.bg_normal
+theme.border_focus  = theme.bg_focus
+theme.border_marked = theme.bg_urgent
+-- }}}
+
+-- {{{ Titlebars
+theme.titlebar_bg_focus  = theme.bg_focus
+theme.titlebar_bg_normal = theme.bg_normal
+-- }}}
+
+-- {{{ Mouse finder
+theme.mouse_finder_color = theme.colors.green
 
 -- There are other variable sets
 -- overriding the default one when
