@@ -38,7 +38,7 @@ theme.fg_urgent  = theme.colors.red
 -- {{{ Borders
 theme.border_width  = "1"
 theme.border_normal = theme.bg_normal
-theme.border_focus  = theme.bg_focus
+theme.border_focus  = theme.colors.cyan
 theme.border_marked = theme.bg_urgent
 -- }}}
 
