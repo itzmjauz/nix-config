@@ -259,7 +259,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
 
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
 -- myWorkspaces = [" dev ", " www ", " sys ", " doc ", " vbox ", " chat ", " mus ", " vid ", " gfx "]
-myWorkspaces = [" main ", " dev ", " www ", " doc ", " www ", " chat ", " mus ", " git ", " nix "]
+myWorkspaces = [" main ", " dev ", " www ", " doc ", " http ", " chat ", " mus ", " git ", " nix "]
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
@@ -295,7 +295,7 @@ myManageHook = composeAll
 myXPConfig = def
   { position          = Bottom
   , alwaysHighlight   = True
-  , promptBorderWidth = 2
+  , promptBorderWidth = 0
   , font              = "xft:monospace:size=11"
   }
 
@@ -342,7 +342,7 @@ myKeys =
         , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
 
     -- Floating windows
-        , ("M-<Space> f", sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
+--        , ("M-<Space> f", sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
         , ("M-t", withFocused $ windows . W.sink)  -- Push floating window back to tile
         , ("M-S-t", sinkAll)                       -- Push ALL floating windows to tile
 
