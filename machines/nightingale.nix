@@ -24,7 +24,17 @@ rec {
     enable = true;
     #    plainX = true;
     windowManager.awesome.enable = true;
+    windowManager.xmonad = {
+      enable = true;
+      config = builtins.readFile ./../modules/xmonad.hs;
+      enableContribAndExtras = true;
+      extraPackages = haskellPackackages: with pkgs.haskellPackages; [
+        pkgs.haskellPackages.xmonad-contrib
+        pkgs.haskellPackages.xmonad
+      ];
+    };
     desktopManager.xterm.enable = false;
+#    displayManager.defaultSession = "none+xmonad";
     synaptics = {
       enable = true;
       tapButtons = false;
@@ -33,10 +43,10 @@ rec {
     xkbOptions = "compose:caps";
     displayManager.lightdm = {
       enable = true;
-      greeters.mini = {
-        enable = true;
-        user = "itzmjauz";
-      };
+#      greeters.mini = {
+#        enable = true;
+#        user = "itzmjauz";
+#      };
 #      theme = ../slim-theme;
     };
   };
@@ -106,11 +116,11 @@ rec {
     enable = true;
   };
 
-  services.xserver.displayManager.sessionCommands = builtins.concatStringsSep "\n" [
+#  services.xserver.displayManager.sessionCommands = builtins.concatStringsSep "\n" [
   #  "${pkgs.terminator}/bin/terminator -e \"fish -c 'while true; panther; end'\" &"
-    "${pkgs.networkmanagerapplet}/bin/nm-applet &"
+#    "${pkgs.networkmanagerapplet}/bin/nm-applet &"
     #    "${pkgs.slack}/bin/slack -u &"
-  ];
+#  ];
 
   services.kmscon = {
     enable = true;
@@ -141,11 +151,11 @@ rec {
     # setup fundamentals
     wget pkgs.boot acpi which xorg.xf86inputsynaptics powertop htop whois file
     # screen settings/setup/utility
-    xcompmgr arandr xorg.xbacklight #backlight settings ( utilised through awesome configs as well )
+    xmobar trayer volumeicon xcompmgr arandr xorg.xbacklight #backlight settings ( utilised through awesome configs as well )
     # shell/terminals
     fish terminator
     # browser
-    chromium
+    networkmanagerapplet chromium
     # web development
     nodejs
     # programming / compilation / low-level development
