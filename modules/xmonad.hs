@@ -65,6 +65,8 @@ import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
+import XMonad.Prompt
+import XMonad.Prompt.Shell
 
 myFont :: String
 myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=11:antialias=true:hinting=true"
@@ -289,6 +291,13 @@ myManageHook = composeAll
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      , isFullscreen -->  doFullFloat
      ] <+> namedScratchpadManageHook myScratchPads
+-- prompt style
+myXPConfig = def
+  { position          = Bottom
+  , alwaysHighlight   = True
+  , promptBorderWidth = 2
+  , font              = "xft:monospace:size=11"
+  }
 
 myKeys :: [(String, X ())]
 myKeys =
@@ -298,23 +307,24 @@ myKeys =
         , ("M-S-q", io exitSuccess)              -- Quits xmonad
 
     -- Run Prompt
-        , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
+        , ("M-r", shellPrompt myXPConfig)
+ --       , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
 
     -- Other Dmenu Prompts
     -- In Xmonad and many tiling window managers, M-p is the default keybinding to
     -- launch dmenu_run, so I've decided to use M-p plus KEY for these dmenu scripts.
-        , ("M-p a", spawn "dm-sounds")    -- choose an ambient background
-        , ("M-p b", spawn "dm-setbg")     -- set a background
-        , ("M-p c", spawn "dm-colpick")   -- pick color from our scheme
-        , ("M-p e", spawn "dm-confedit")  -- edit config files
-        , ("M-p i", spawn "dm-maim")      -- screenshots (images)
-        , ("M-p k", spawn "dm-kill")      -- kill processes
-        , ("M-p m", spawn "dm-man")       -- manpages
-        , ("M-p o", spawn "dm-bookman")   -- qutebrowser bookmarks/history
-        , ("M-p p", spawn "passmenu")     -- passmenu
-        , ("M-p q", spawn "dm-logout")    -- logout menu
-        , ("M-p r", spawn "dm-reddit")    -- reddio (a reddit viewer)
-        , ("M-p s", spawn "dm-websearch") -- search various search engines
+--        , ("M-p a", spawn "dm-sounds")    -- choose an ambient background
+--        , ("M-p b", spawn "dm-setbg")     -- set a background
+--        , ("M-p c", spawn "dm-colpick")   -- pick color from our scheme
+--        , ("M-p e", spawn "dm-confedit")  -- edit config files
+--        , ("M-p i", spawn "dm-maim")      -- screenshots (images)
+--        , ("M-p k", spawn "dm-kill")      -- kill processes
+--        , ("M-p m", spawn "dm-man")       -- manpages
+--        , ("M-p o", spawn "dm-bookman")   -- qutebrowser bookmarks/history
+--        , ("M-p p", spawn "passmenu")     -- passmenu
+--        , ("M-p q", spawn "dm-logout")    -- logout menu
+--        , ("M-p r", spawn "dm-reddit")    -- reddio (a reddit viewer)
+--        , ("M-p s", spawn "dm-websearch") -- search various search engines
 
     -- Useful programs to have a keybinding for launch
         , ("M-<Return>", spawn (myTerminal))
@@ -393,8 +403,8 @@ myKeys =
     -- When you toggle them to show, it brings them to your current workspace.
     -- Toggle them to hide and it sends them back to hidden workspace (NSP).
         , ("C-s t", namedScratchpadAction myScratchPads "terminal")
-        , ("C-s m", namedScratchpadAction myScratchPads "mocp")
-        , ("C-s c", namedScratchpadAction myScratchPads "calculator")
+    --    , ("C-s m", namedScratchpadAction myScratchPads "mocp")
+    --    , ("C-s c", namedScratchpadAction myScratchPads "calculator")
 
     -- Set wallpaper with 'feh'. Type 'SUPER+F1' to launch sxiv in the wallpapers directory.
     -- Then in sxiv, type 'C-x w' to set the wallpaper that you choose.
@@ -408,11 +418,24 @@ myKeys =
         , ("M-u h", spawn "mocp --previous")
         , ("M-u <Space>", spawn "mocp --toggle-pause")
 
+    -- Xbacklight keys
+        , ("<XF86MonBrightnessDown>", spawn "/run/current-system/sw/bin/xbacklight -dec 10")
+        , ("S-<XF86MonBrightnessDown>", spawn "/run/current-system/sw/bin/xbacklight -dec 1")
+        , ("<XF86MonBrightnessUp>", spawn "/run/current-system/sw/bin/xbacklight -inc 10")
+        , ("S-<XF86MonBrightnessUp>", spawn "/run/current-system/sw/bin/xbacklight -inc 1")
+        -- map to F keys also
+        , ("M-<F5>", spawn "/run/current-system/sw/bin/xbacklight -dec 10")
+        , ("M-S-<F5>", spawn "/run/current-system/sw/bin/xbacklight -dec 1")
+        , ("M-<F6>", spawn "/run/current-system/sw/bin/xbacklight -inc 10")
+        , ("M-S-<F6>", spawn "/run/current-system/sw/bin/xbacklight -inc 1")
+
        -- Multimedia Keys
         , ("<XF86AudioMute>", spawn "amixer set Master toggle")
-        , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
-        , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
-        , ("<XF86HomePage>", spawn "chromium https://www.google.com")
+        , ("<XF86AudioLowerVolume>", spawn "amixer set Master 10%- unmute")
+        , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 10%+ unmute")
+       -- multiply with shift
+        , ("S-<XF86AudioLowerVolume>", spawn "amixer set Master 2%- unmute")
+        , ("S-<XF86AudioRaiseVolume>", spawn "amixer set Master 2%+ unmute")
         , ("<Print>", spawn "scrot")
         ]
     -- The following lines are needed for named scratchpads.
@@ -423,8 +446,6 @@ main :: IO ()
 main = do
     -- Launching three instances of xmobar on their monitors.
     xmproc0 <- spawnPipe "xmobar -x 0 /etc/nixos/modules/xmobar/xmobarrc0"
-    xmproc1 <- spawnPipe "xmobar -x 1 /etc/nixos/modules/xmobar/xmobarrc1"
-    xmproc2 <- spawnPipe "xmobar -x 2 /etc/nixos/modules/xmobar/xmobarrc2"
     -- the xmonad, ya know...what the WM is named after!
     xmonad $ ewmh def
         { manageHook         = myManageHook <+> manageDocks
@@ -445,8 +466,6 @@ main = do
         , logHook = dynamicLogWithPP $ namedScratchpadFilterOutWorkspacePP $ xmobarPP
               -- the following variables beginning with 'pp' are settings for xmobar.
               { ppOutput = \x -> hPutStrLn xmproc0 x                          -- xmobar on monitor 1
-                              >> hPutStrLn xmproc1 x                          -- xmobar on monitor 2
-                              >> hPutStrLn xmproc2 x                          -- xmobar on monitor 3
               , ppCurrent = xmobarColor "#98be65" "" . wrap "[" "]"           -- Current workspace
               , ppVisible = xmobarColor "#98be65" "" . clickable              -- Visible but not current workspace
               , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" "" . clickable -- Hidden workspaces
