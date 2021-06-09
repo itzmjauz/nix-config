@@ -151,11 +151,13 @@ rec {
     # setup fundamentals
     wget pkgs.boot acpi which xorg.xf86inputsynaptics powertop htop whois file
     # screen settings/setup/utility
-    feh xmobar trayer volumeicon xcompmgr arandr xorg.xbacklight #backlight settings ( utilised through awesome configs as well )
+    xcompmgr arandr xorg.xbacklight #backlight settings ( utilised through awesome configs as well )
+    # window manager
+    feh xmobar trayer volumeicon networkmanagerapplet
     # shell/terminals
     fish terminator alacritty
-    # browser
-    networkmanagerapplet chromium
+    # browser - music 
+    chromium spotify
     # web development
     nodejs
     # programming / compilation / low-level development
