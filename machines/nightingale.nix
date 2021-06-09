@@ -151,7 +151,7 @@ rec {
     # setup fundamentals
     wget pkgs.boot acpi which xorg.xf86inputsynaptics powertop htop whois file
     # screen settings/setup/utility
-    xmobar trayer volumeicon xcompmgr arandr xorg.xbacklight #backlight settings ( utilised through awesome configs as well )
+    feh xmobar trayer volumeicon xcompmgr arandr xorg.xbacklight #backlight settings ( utilised through awesome configs as well )
     # shell/terminals
     fish terminator
     # browser

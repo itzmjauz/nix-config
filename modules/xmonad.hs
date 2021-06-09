@@ -107,10 +107,7 @@ myStartupHook = do
     --spawnOnce "conky -c $HOME/.config/conky/xmonad.conkyrc"
     spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
     spawnOnce "kak -d -s mysession &"  -- kakoune daemon for better performance
-
-    spawnOnce "xargs xwallpaper --stretch < /etc/nixos/pkgs/awesome/config/nixos-bg.png"  -- set last saved with xwallpaper
-    -- spawnOnce "/bin/ls ~/wallpapers | shuf -n 1 | xargs xwallpaper --stretch"  -- set random xwallpaper
-    -- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh
+    spawnOnce "feh --randomize --bg-fill /etc/nixos/modules/wallpapers/*"  -- feh set random wallpaper
     setWMName "LG3D"
 
 myColorizer :: Window -> Bool -> X (String, String)
