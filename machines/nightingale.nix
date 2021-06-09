@@ -96,7 +96,7 @@ rec {
   fonts = {
     fontDir.enable = true;
     enableGhostscriptFonts = true;
-    fonts = with pkgs; [ source-code-pro carlito ];
+    fonts = with pkgs; [ source-code-pro carlito font-awesome ];
   };
 
   nix.nixPath = pkgs.lib.mkBefore [
