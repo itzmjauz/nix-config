@@ -153,7 +153,7 @@ rec {
     # screen settings/setup/utility
     feh xmobar trayer volumeicon xcompmgr arandr xorg.xbacklight #backlight settings ( utilised through awesome configs as well )
     # shell/terminals
-    fish terminator
+    fish terminator alacritty
     # browser
     networkmanagerapplet chromium
     # web development
