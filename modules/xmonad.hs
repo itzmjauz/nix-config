@@ -14,7 +14,7 @@ import XMonad.Actions.Promote
 import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
 import XMonad.Actions.WindowGo (runOrRaise)
 import XMonad.Actions.WithAll (sinkAll, killAll)
-import XMonad.Actions.CycleWS (nextWS, prevWS)
+import XMonad.Actions.CycleWS (nextWS, prevWS, shiftToNext, shiftToPrev)
 import qualified XMonad.Actions.Search as S
 
     -- Data
@@ -326,6 +326,7 @@ myKeys =
 
     -- Useful programs to have a keybinding for launch
         , ("M-<Return>", spawn (myTerminal))
+        , ("M-t", spawn ("alacritty"))
         , ("M-S-<Return>", spawn ("alacritty"))
         , ("M-w", spawn (myBrowser ++ " www.google.com"))
         , ("M-M1-h", spawn (myTerminal ++ " -e htop"))
@@ -337,13 +338,13 @@ myKeys =
     -- Workspaces
         , ("M-<Right>", nextWS)  -- Switch focus to next monitor
         , ("M-<Left>", prevWS)  -- Switch focus to prev monitor
-        , ("M-S-<KP_Add>", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next ws
-        , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
+        , ("M-S-<Right>", shiftToNext >> nextWS )       -- Shifts focused window to next ws
+        , ("M-S-<Left>", shiftToPrev >> prevWS)  -- Shifts focused window to prev ws
 
     -- Floating windows
 --        , ("M-<Space> f", sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
-        , ("M-t", withFocused $ windows . W.sink)  -- Push floating window back to tile
-        , ("M-S-t", sinkAll)                       -- Push ALL floating windows to tile
+--        , ("M-t", withFocused $ windows . W.sink)  -- Push floating window back to tile
+--        , ("M-S-t", sinkAll)                       -- Push ALL floating windows to tile
 
     -- Increase/decrease spacing (gaps)
         , ("C-M1-j", decWindowSpacing 4)         -- Decrease window spacing
@@ -387,10 +388,10 @@ myKeys =
 
     -- Sublayouts
     -- This is used to push windows to tabbed sublayouts, or pull them out of it.
-        , ("M-C-h", sendMessage $ pullGroup L)
-        , ("M-C-l", sendMessage $ pullGroup R)
-        , ("M-C-k", sendMessage $ pullGroup U)
-        , ("M-C-j", sendMessage $ pullGroup D)
+        , ("M-C-h", withFocused (sendMessage . UnMerge))
+        , ("M-C-l", withFocused (sendMessage . UnMerge))
+        , ("M-C-k", withFocused (sendMessage . mergeDir W.focusDown'))
+        , ("M-C-j", withFocused (sendMessage . mergeDir W.focusUp'))
         , ("M-C-m", withFocused (sendMessage . MergeAll))
         -- , ("M-C-u", withFocused (sendMessage . UnMerge))
         , ("M-C-/", withFocused (sendMessage . UnMergeAll))
