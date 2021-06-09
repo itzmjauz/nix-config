@@ -96,7 +96,7 @@ rec {
   fonts = {
     fontDir.enable = true;
     enableGhostscriptFonts = true;
-    fonts = with pkgs; [ source-code-pro carlito font-awesome ];
+    fonts = with pkgs; [ source-code-pro carlito font-awesome mononoki ];
   };
 
   nix.nixPath = pkgs.lib.mkBefore [
@@ -153,7 +153,7 @@ rec {
     # screen settings/setup/utility
     xcompmgr arandr xorg.xbacklight #backlight settings ( utilised through awesome configs as well )
     # window manager
-    feh xmobar trayer volumeicon networkmanagerapplet
+    xdotool feh xmobar trayer volumeicon networkmanagerapplet
     # shell/terminals
     fish terminator alacritty
     # browser - music 
