@@ -206,14 +206,14 @@ grid     = renamed [Replace "grid"]
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ limitWindows 12
-           $ mySpacing 8
+           $ mySpacing 3
            $ mkToggle (single MIRROR)
            $ Grid (16/10)
 spirals  = renamed [Replace "spirals"]
            $ smartBorders
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
-           $ mySpacing' 8
+           $ mySpacing' 3
            $ spiral (6/7)
 
 tabs     = renamed [Replace "tabs"]
@@ -295,8 +295,9 @@ myManageHook = composeAll
 myXPConfig = def
   { position          = Bottom
   , alwaysHighlight   = True
-  , promptBorderWidth = 0
-  , font              = "xft:monospace:size=11"
+--  , promptBorderWidth = 2
+  , font              = "xft:monospace:size=9"
+  , borderColor       = myFocusColor
   }
 
 myKeys :: [(String, X ())]
