@@ -326,6 +326,7 @@ myKeys =
 
     -- Useful programs to have a keybinding for launch
         , ("M-<Return>", spawn (myTerminal))
+        , ("M-S-<Return>", spawn ("alacritty"))
         , ("M-w", spawn (myBrowser ++ " www.google.com"))
         , ("M-M1-h", spawn (myTerminal ++ " -e htop"))
 
