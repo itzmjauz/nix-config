@@ -5,5 +5,6 @@
     ./dircolors.nix
     ./vim.nix
     ./kakoune.nix
+    ./alacritty.nix
   ];
 }
