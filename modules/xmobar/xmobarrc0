@@ -25,10 +25,7 @@ Config { font    = "xft:Mononoki Nerd Font:weight=bold:pixelsize=12:antialias=tr
                       -- Ram used number and percent
                     , Run Memory ["-t", "<fn=2>\xf233</fn>  mem: <used>M (<usedratio>%)"] 20
                       -- Disk space free
-                    --, Run DiskU [] [] 60
                     , Run Com "/etc/nixos/modules/xmobar/diskusage.sh" [] "disk" 60
-                      -- Runs a standard shell command 'uname -r' to get kernel version
---                    , Run Com "uname" ["-r", "-n"] "" 3600
                     , Run Battery [
                       "-t", "<acstatus>: <left> - <timeleft>",
                       "-W", "0",
