@@ -142,7 +142,6 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
 
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
-                , NS "mocp" spawnMocp findMocp manageMocp
                 , NS "calculator" spawnCalc findCalc manageCalc
                 ]
   where
@@ -154,14 +153,6 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 0.9
                  t = 0.95 -h
                  l = 0.95 -w
-    spawnMocp  = myTerminal ++ " -t mocp -e mocp"
-    findMocp   = title =? "mocp"
-    manageMocp = customFloating $ W.RationalRect l t w h
-               where
-                 h = 0.9
-                 w = 0.9
-                 t = 0.95 -h
-                 l = 0.95 -w 
     spawnCalc  = "qalculate-gtk"
     findCalc   = className =? "Qalculate-gtk"
     manageCalc = customFloating $ W.RationalRect l t w h
@@ -327,6 +318,10 @@ myKeys =
     -- Useful programs to have a keybinding for launch
         , ("M-<Return>", spawn (myTerminal))
         , ("M-t", spawn ("alacritty"))
+        , ("M-S-t", spawn ("alacritty"))
+         -- cant combine spawnando and normal code, so we just add a command
+         -- one key away
+        , ("M-S-y", withFocused (sendMessage . mergeDir W.focusUp'))
         , ("M-S-<Return>", spawn ("alacritty"))
         , ("M-w", spawn (myBrowser ++ " www.google.com"))
         , ("M-M1-h", spawn (myTerminal ++ " -e htop"))
@@ -338,7 +333,7 @@ myKeys =
     -- Workspaces
         , ("M-<Right>", nextWS)  -- Switch focus to next monitor
         , ("M-<Left>", prevWS)  -- Switch focus to prev monitor
-        , ("M-S-<Right>", shiftToNext >> nextWS )       -- Shifts focused window to next ws
+        , ("M-S-<Right>", shiftToNext >> nextWS)       -- Shifts focused window to next ws
         , ("M-S-<Left>", shiftToPrev >> prevWS)  -- Shifts focused window to prev ws
 
     -- Floating windows
@@ -354,11 +349,11 @@ myKeys =
 
     -- Grid Select (CTR-g followed by a key)
 --        , ("C-g g", spawnSelected' myAppGrid)                 -- grid select favorite apps
-        , ("C-g t", goToSelected $ mygridConfig myColorizer)  -- goto selected window
-        , ("C-g b", bringSelected $ mygridConfig myColorizer) -- bring selected window
+        , ("M-g t", goToSelected $ mygridConfig myColorizer)  -- goto selected window
+        , ("M-g b", bringSelected $ mygridConfig myColorizer) -- bring selected window
 
     -- Windows navigation
-        , ("M-m", windows W.focusMaster)  -- Move focus to the master window
+        , ("M-m m", windows W.focusMaster)  -- Move focus to the master window
         , ("M-<Tab>", windows W.focusDown)    -- Move focus to the next window
         , ("M-S-<Tab>", windows W.focusUp)      -- Move focus to the prev window
         , ("M-<Up>", windows W.focusDown)    -- Move focus to the next window
@@ -393,7 +388,7 @@ myKeys =
         , ("M-C-k", withFocused (sendMessage . mergeDir W.focusDown'))
         , ("M-C-j", withFocused (sendMessage . mergeDir W.focusUp'))
         , ("M-C-m", withFocused (sendMessage . MergeAll))
-        -- , ("M-C-u", withFocused (sendMessage . UnMerge))
+        , ("M-C-u", withFocused (sendMessage . UnMerge))
         , ("M-C-/", withFocused (sendMessage . UnMergeAll))
         , ("M-C-.", onGroup W.focusUp')    -- Switch focus to next tab
         , ("M-C-,", onGroup W.focusDown')  -- Switch focus to prev tab
@@ -403,7 +398,6 @@ myKeys =
     -- When you toggle them to show, it brings them to your current workspace.
     -- Toggle them to hide and it sends them back to hidden workspace (NSP).
         , ("C-s t", namedScratchpadAction myScratchPads "terminal")
-    --    , ("C-s m", namedScratchpadAction myScratchPads "mocp")
     --    , ("C-s c", namedScratchpadAction myScratchPads "calculator")
 
     -- Set wallpaper with 'feh'. Type 'SUPER+F1' to launch sxiv in the wallpapers directory.
@@ -412,11 +406,11 @@ myKeys =
         , ("M-<F2>", spawn "/bin/ls ~/wallpapers | shuf -n 1 | xargs xwallpaper --stretch")
         --, ("M-<F2>", spawn "feh --randomize --bg-fill ~/wallpapers/*")
 
-    -- Controls for mocp music player (SUPER-u followed by a key)
-        , ("M-u p", spawn "mocp --play")
-        , ("M-u l", spawn "mocp --next")
-        , ("M-u h", spawn "mocp --previous")
-        , ("M-u <Space>", spawn "mocp --toggle-pause")
+    -- Controls for spotify music player (SUPER-u followed by a key)
+        , ("M-M1-<Up>", spawn "spotify")
+        , ("M-M1-<Down>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
+        , ("M-M1-<Left>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous")
+        , ("M-M1-<Right>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next")
 
     -- Xbacklight keys
         , ("<XF86MonBrightnessDown>", spawn "/run/current-system/sw/bin/xbacklight -dec 10")
@@ -436,7 +430,7 @@ myKeys =
        -- multiply with shift
         , ("S-<XF86AudioLowerVolume>", spawn "amixer set Master 2%- unmute")
         , ("S-<XF86AudioRaiseVolume>", spawn "amixer set Master 2%+ unmute")
-        , ("<Print>", spawn "scrot")
+        , ("M-<Print>", spawn "scrot")
         ]
     -- The following lines are needed for named scratchpads.
           where nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))

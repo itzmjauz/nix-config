@@ -25,7 +25,8 @@ Config { font    = "xft:Ubuntu:weight=bold:pixelsize=12:antialias=true:hinting=t
                       -- Ram used number and percent
                     , Run Memory ["-t", "<fn=2>\xf233</fn>  mem: <used>M (<usedratio>%)"] 20
                       -- Disk space free
-                    , Run DiskU [] [] 60
+                    --, Run DiskU [] [] 60
+                    , Run Com "/etc/nixos/modules/xmobar/diskusage.sh" [] "disk" 60
                       -- Runs a standard shell command 'uname -r' to get kernel version
 --                    , Run Com "uname" ["-r", "-n"] "" 3600
                     , Run Battery [
@@ -41,5 +42,5 @@ Config { font    = "xft:Ubuntu:weight=bold:pixelsize=12:antialias=true:hinting=t
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <icon=haskell_20.xpm/><fc=#666666> | </fc> %UnsafeStdinReader% }{<fc=#666666>|</fc><fc=#ecbe7b> <action=`terminator -e htop`> %cpu%</action> </fc> <fc=#666666>|</fc><fc=#ff6c6b> <action=`terminator -e htop`> %memory%</action> </fc> <fc=#666666>|</fc><fc=#51afef> <action=`terminator -e htop`>%disku%</action> </fc> <fc=#666666>|</fc><fc=#98be65> <action=`terminator -e sudo iftop`> %wlan0%</action> </fc> <fc=#666666>|</fc><fc=#c678dd> <fn=2></fn> %battery%</fc> <fc=#666666>|</fc><fc=#46d9ff> %date%           </fc>"
+       , template = " <icon=haskell_20.xpm/><fc=#666666> | </fc> %UnsafeStdinReader% }{<fc=#666666>|</fc><fc=#ecbe7b> <action=`terminator -e htop`> %cpu%</action> </fc> <fc=#666666>|</fc><fc=#ff6c6b> <action=`terminator -e htop`> %memory%</action> </fc> <fc=#666666>|</fc><fc=#51afef> %disk%</fc> <fc=#666666>|</fc><fc=#98be65> <action=`terminator -e sudo iftop`> %wlan0%</action> </fc> <fc=#666666>|</fc><fc=#c678dd> <fn=2></fn> %battery%</fc> <fc=#666666>|</fc><fc=#46d9ff> %date%           </fc>"
        }
