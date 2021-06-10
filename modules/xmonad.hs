@@ -401,8 +401,8 @@ myKeys c =
     -- Window resizing
         , ("M-h",           sendMessage Shrink,             "Shrink window <->")                   -- Shrink horiz window width
         , ("M-l",           sendMessage Expand,             "Expand window <->")                   -- Expand horiz window width
-        , ("M-M1-j",        sendMessage MirrorShrink,       "Shrink window ^-v")          -- Shrink vert window width
-        , ("M-M1-k",        sendMessage MirrorExpand,       "Expand window ^-v")          -- Expand vert window width
+        , ("M-M1-j",        sendMessage MirrorShrink,       "Shrink window v")          -- Shrink vert window width
+        , ("M-M1-k",        sendMessage MirrorExpand,       "Expand window v")          -- Expand vert window width
 
     -- Sublayouts
     -- This is used to push windows to tabbed sublayouts, or pull them out of it.
@@ -413,8 +413,8 @@ myKeys c =
         , ("M-C-m", withFocused (sendMessage . MergeAll),               "Merge all w")
         , ("M-C-u", withFocused (sendMessage . UnMerge),                "Unmerge w")
         , ("M-C-/", withFocused (sendMessage . UnMergeAll),             "Unmerge all w")
-        , ("M-C-.", onGroup W.focusUp',                                 "Cycle w ->")    -- Switch focus to next tab
-        , ("M-C-,", onGroup W.focusDown',                               "Cycle w <-")  -- Switch focus to prev tab
+--        , ("M-C-.", onGroup W.focusUp',                                 "Cycle w ->")    -- Switch focus to next tab
+--        , ("M-C-,", onGroup W.focusDown',                               "Cycle w <-")  -- Switch focus to prev tab
 
     -- Scratchpads
     -- Toggle show/hide these programs.  They run on a hidden workspace.
