@@ -14,7 +14,7 @@ import XMonad.Actions.Promote
 import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
 import XMonad.Actions.WindowGo (runOrRaise)
 import XMonad.Actions.WithAll (sinkAll, killAll)
-import XMonad.Actions.CycleWS (nextWS, prevWS, shiftToNext, shiftToPrev)
+import XMonad.Actions.CycleWS (nextWS, prevWS, shiftToNext, shiftToPrev, toggleOrDoSkip)
 import qualified XMonad.Actions.Search as S
 
     -- Data
@@ -61,7 +61,7 @@ import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
 
    -- Utilities
 import XMonad.Util.Dmenu
-import XMonad.Util.EZConfig (additionalKeysP, mkKeymap)
+import XMonad.Util.EZConfig (additionalKeysP, mkKeymap, additionalKeys)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
@@ -521,6 +521,13 @@ fmtDesc name map rows fg hl | name == "" = "'" ++ "\\n" ++ list ++ "'"
         zipWithMore _ []      bs    = bs -- if there's more in bs, use that
         zipWithMore _ as      []    = as -- if there's more in as, use that
 
+myWorkspaceKeys :: [((KeyMask, KeySym), X())]
+myWorkspaceKeys = [((m .|. myModMask, k), f i)
+        | (i, k) <- zip myWorkspaces [xK_1 .. xK_9]
+        , (f, m) <- [(myToggleOrView, 0), (windows . W.shift, shiftMask)]]
+            where
+                myToggleOrView = toggleOrDoSkip [] W.view
+
 main :: IO ()
 main = do
     -- Launching three instances of xmobar on their monitors.
@@ -555,5 +562,5 @@ main = do
               , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"            -- Urgent workspace
               , ppExtras  = [windowCount]                                     -- # of windows current workspace
               , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]                    -- order of things in xmobar
-              }
-        }
+              } 
+        }`additionalKeys` myWorkspaceKeys
