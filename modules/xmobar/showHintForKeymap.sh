@@ -14,7 +14,7 @@ win_id=$2
 bar_height=$3
 delay=$4
 bg_color=$5
-pers_mode=$6
+pers_mode=1
 
 n_lines=$(echo -e "${keymap_text}" | wc -l)
 
@@ -31,7 +31,7 @@ screen_size=$(xdpyinfo | awk '/dimensions:/ { print $2; exit }')
 screen_width=$(echo "${screen_size}" | cut -f1 -dx)
 screen_height=$(echo "${screen_size}" | cut -f2 -dx)
 
-y_pos=$((screen_height - bar_height * (n_lines + 1) - bar_height))
+y_pos=$((screen_height - bar_height * (n_lines + 1) - bar_height - 280))
 
 # DEBUG
 #echo -e "${keymap_text}" > ~/tmp/keymap

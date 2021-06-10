@@ -490,7 +490,7 @@ fmtDesc name map rows fg hl | name == "" = "'" ++ "\\n" ++ list ++ "'"
         list = L.intercalate "\\n" (foldr (zipWithMore (++)) [""] col)
         col = chunksOf nRows $ colDesc map
         --sortKeys  = L.sortBy (\(a,_,_) (b,_,_) -> compare a b)
-        maxChars = 200
+        maxChars = 185
         lMap = length map
         nRows = min rows lMap
         nCol = max 1 $ ceiling $ fromIntegral lMap / fromIntegral nRows
