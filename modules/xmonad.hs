@@ -1,5 +1,6 @@
-  -- Base
-import XMonad
+{-# LANGUAGE NamedFieldPuns #-}
+-- Base
+import XMonad hiding (Color, whenJust)
 import System.Directory
 import System.IO (hPutStrLn)
 import System.Exit (exitSuccess)
@@ -23,6 +24,8 @@ import Data.Maybe (fromJust)
 import Data.Monoid
 import Data.Maybe (isJust)
 import Data.Tree
+import qualified Data.Text as T
+import qualified Data.Text.Lazy as TL
 import qualified Data.Map as M
 
     -- Hooks
@@ -63,10 +66,50 @@ import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
 import XMonad.Util.Dmenu
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
-import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
+import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe, seconds)
 import XMonad.Util.SpawnOnce
+import XMonad.Util.Types
 import XMonad.Prompt
 import XMonad.Prompt.Shell
+
+   -- which key libs
+import XMonad.Util.Font (Align(..))
+import XMonad.Actions.Submap (submap)
+import Relude as R hiding ((??))
+import Relude.Extra.Foldable1
+import Relude.Extra.Tuple
+import Relude.Extra.Bifunctor
+--type unlines = R.unlines
+
+import Text.Printf
+import Data.Text.Format (Only(..))
+import qualified Data.Text.Format as F
+import XMonad.Util.EZConfig (mkKeymap, checkKeymap)
+import System.Posix.IO
+import System.Posix.Types (CPid(..))
+import System.Process (system, readProcess)
+import System.Posix.Process (executeFile, getProcessID)
+import System.Posix.Signals (signalProcess, sigKILL)
+import Control.Concurrent (threadDelay)
+
+wrap2 :: Text -> Text -> Text -> Text
+wrap2 left right middle = left <> middle <> right
+
+pad2 :: Text -> Text
+pad2 = wrap2 (T.pack " ") (T.pack " ")
+
+shorten2 :: Int -> Text -> Text
+shorten2 maxlen text = case text `T.compareLength` maxlen of
+  GT -> T.snoc (T.take maxlen text) ellipsis
+  otherwise -> text
+  where ellipsis = '…'
+
+format2 fmt = TL.toStrict . F.format fmt
+format1 str item = format2 str (Only item)
+
+mapThd3 f (a,b,c) = (a,b, f c)
+dropSnd3 (a,b,c) = (a,c)
+dropThd3 (a,b,c) = (a,b)
 
 myFont :: String
 myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=11:antialias=true:hinting=true"
@@ -97,7 +140,14 @@ myFocusColor :: String
 myFocusColor  = "#46d9ff"   -- Border color of focused windows
 
 windowCount :: X (Maybe String)
-windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+windowCount = gets $ Just . R.show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+
+-- Dzen config options
+type Color = Text
+
+dzenFg, dzenBg :: Color -> Text -> Text
+dzenFg color string = format2 (R.show "^fg({}){}^fg()") (color, string)
+dzenBg color string = format2 (R.show "^bg({}){}^bg()") (color, string)
 
 myStartupHook :: X ()
 myStartupHook = do
@@ -250,7 +300,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
 myWorkspaces = ["main", "dev", "www", "doc", "http", "chat", "mus", "git", "nix"]
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
-clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
+clickable ws = "<action=xdotool key super+"++ R.show i++">"++ws++"</action>"
     where i = fromJust $ M.lookup ws myWorkspaceIndices
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
@@ -287,13 +337,16 @@ myXPConfig = def
   , font              = "xft:monospace:size=9"
   , borderColor       = myFocusColor
   }
+-- which keys helper function
+spawnKeymap :: Text -> [(Text, Text, String)] -> (String, X ())
+spawnKeymap key items = (toString key, whichkeySubmap def myConfig $ mapThd3 spawn <$> items)
 
 myKeys :: [(String, X ())]
 myKeys =
     -- Xmonad
-        [ ("M-C-r", spawn "xmonad --recompile")  -- Recompiles xmonad
+        [ ("M-S-r", spawn "xmonad --recompile")  -- Recompiles xmonad
         , ("M-S-r", spawn "xmonad --restart")    -- Restarts xmonad
-        , ("M-S-q", io exitSuccess)              -- Quits xmonad
+        , ("M-S-q", io System.Exit.exitSuccess)              -- Quits xmonad
 
     -- Run Prompt
         , ("M-r", shellPrompt myXPConfig)
@@ -435,6 +488,105 @@ myKeys =
     -- The following lines are needed for named scratchpads.
           where nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))
                 nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
+
+myInfoKeys = return $ spawnKeymap (T.pack "M-i") info
+ where
+  info = [ ((T.pack "i") ,(T.pack "test"), (R.show ""))
+
+         ]
+allMyKeys :: [(String, X ())]
+allMyKeys = concat
+ [myKeys, myInfoKeys]
+
+myKeymap = flip mkKeymap myKeys
+
+myConfig = def
+  { terminal        = myTerminal
+  , modMask         = myModMask
+  , keys            = myKeymap
+  , startupHook     = myStartupHook
+  , workspaces      = myWorkspaces
+  , layoutHook      = myLayoutHook
+  }
+
+-- which-key helper
+displayTextFont :: String
+displayTextFont = "Iosevka:pixelsize=15"
+
+displayTextSync :: MonadIO m => Maybe Int -> Text -> m ()
+displayTextSync time text = io . void $ readProcess "dzen2"
+  (("-p" : timeArg) ++
+   [ "-l", R.show numLines
+   , "-ta", "c" , "-sa", "c"
+   , "-e", "onstart=uncollapse"                 -- show all lines at startup (by default they only show on mouse hover)
+   , "-fn", displayTextFont
+   ])
+  (toString text)
+  where
+    numLines = max 0 (length (R.lines text) - 1)  -- we only count slave lines, so everything after the first one
+    timeArg = maybeToList $ R.show <$> time
+
+displayText time text = void $ xfork $ displayTextSync time text
+
+displayTextSyncTill, displayTextTill :: MonadIO m => Int -> Text -> m ()
+displayTextSyncTill = displayTextSync . Just
+displayTextTill = displayText . Just
+
+displayTextSyncForever, displayTextForever :: MonadIO m => Text -> m ()
+displayTextSyncForever = displayTextSync Nothing
+displayTextForever = displayText Nothing
+
+data WhichkeyConfig
+  = WhichkeyConfig
+  { keyFg  :: Color     -- ^ foreground color for keys
+  , descFg :: Color     -- ^ foreground color for action descriptions
+  , delay  :: Rational  -- ^ delay (in seconds) after which whichkey pops up
+  }
+
+instance Default WhichkeyConfig where
+  def = WhichkeyConfig
+    { keyFg  = T.pack "#61afef"
+    , descFg = T.pack "#98c379"
+    , delay  = 1.5
+    }
+
+whichkeyShowBindings :: WhichkeyConfig -> [(Text, Text, X ())] -> [Text]
+whichkeyShowBindings WhichkeyConfig{keyFg, descFg} keybinds =
+  keybinds
+  <&> dropThd3
+  <&> first capitalizeIfShift
+   &  unzip
+   &  bimap equalizeLeft equalizeRight
+   &  uncurry zip
+  <&> bimap (dzenFg keyFg) (dzenFg descFg)
+  <&> format2 (R.show "{} -> {}")
+  where
+    capitalizeIfShift keystr
+      | (T.pack "S-") `T.isPrefixOf` last3 = T.snoc (T.dropEnd 3 keystr) (toUpper lastChar)
+      | otherwise = keystr
+      where
+        last3 = T.takeEnd 3 keystr
+        lastChar = T.last last3
+
+    equalizeLeft keys =
+      let maxLen = maximum1 (T.length <$> T.empty :| keys) in
+      T.justifyRight maxLen ' ' <$> keys
+
+    equalizeRight descriptions =
+      let maxLen = maximum1 (T.length <$> T.empty :| descriptions) in
+      T.justifyLeft maxLen ' ' <$> descriptions
+
+whichkeySubmap :: WhichkeyConfig
+               -> XConfig l
+               -> [(Text, Text, X ())]
+               -> X ()
+whichkeySubmap whichkeyConf config keybinds = do
+  pid <- xfork (threadDelay (seconds $ delay whichkeyConf) >> displayTextSyncForever (toHelp keybinds))
+  catchX (submap . mkKeymap config $ first toString . dropSnd3 <$> keybinds) mempty
+  io $ signalProcess sigKILL pid
+  spawn "pkill dzen2"
+  where
+    toHelp = R.unlines . whichkeyShowBindings whichkeyConf
 
 main :: IO ()
 main = do
