@@ -1,4 +1,4 @@
-  -- Base
+    -- Base
 import XMonad
 import System.Directory
 import System.IO (hPutStrLn, Handle)
@@ -102,7 +102,7 @@ myTerminal :: String
 myTerminal = "terminator"    -- Sets default terminal
 
 myBrowser :: String
-myBrowser = "chromium"  -- Sets qutebrowser as browser
+myBrowser = "chromium --new-window"  -- Sets qutebrowser as browser
 
 --myEmacs :: String
 --myEmacs = "emacsclient -c -a 'emacs' "  -- Makes emacs keybindings easier to type
