@@ -99,7 +99,7 @@ let
     guessindent
 #    html  TODO attempts to create dir in buildphase in illegal location
     vim-javascript
-    vim-markdown
+    #vim-markdown this one hurts
     vim-misc
     nerdtree
     vim-nix

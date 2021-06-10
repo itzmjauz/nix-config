@@ -132,7 +132,7 @@ rec {
     "vt.default_blu=0x42,0x2f,0x00,0x00,0xd2,0x82,0x98,0xd5,0x36,0x16,0x75,0x83,0x96,0xc4,0xa1,0xe3"
   ];
 
-  services.openssh.enable = true;
+  services.openssh.enable = false;# set to true for ssh server
   virtualisation.docker.enable = false;
 
   # services.postgresql.enable = true
@@ -153,7 +153,7 @@ rec {
     # screen settings/setup/utility
     xcompmgr arandr xorg.xbacklight #backlight settings ( utilised through awesome configs as well )
     # window manager
-    xdotool feh xmobar trayer volumeicon networkmanagerapplet
+    dzen2 xdotool feh xmobar trayer volumeicon networkmanagerapplet
     # shell/terminals
     fish terminator alacritty
     # browser - music 
@@ -165,7 +165,7 @@ rec {
     # package management 
     rustup python38Packages.pip
     # development / utility
-    ctags git git-hub
+    ctags git git-hub evince
     # offensive/defense pentesting toolsi [TODO Nikto is in unstable]
     msf radare2 radare2-cutter nmap python38Packages.pwntools gobuster
     # editor, installed in their respective configs 
