@@ -154,7 +154,7 @@ rec {
     # screen settings/setup/utility
     xcompmgr arandr xorg.xbacklight #backlight settings ( utilised through awesome configs as well )
     # window manager
-    dzen2 xdotool feh xmobar trayer volumeicon networkmanagerapplet
+    xorg.xdpyinfo dzen2 xdotool feh xmobar trayer volumeicon networkmanagerapplet
     # shell/terminals
     fish terminator alacritty
     # browser - music 
