@@ -31,6 +31,7 @@ rec {
       extraPackages = haskellPackackages: with pkgs.haskellPackages; [
         pkgs.haskellPackages.xmonad-contrib
         pkgs.haskellPackages.xmonad
+        pkgs.haskellPackages.split
       ];
     };
     desktopManager.xterm.enable = false;
