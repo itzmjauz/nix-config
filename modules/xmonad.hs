@@ -249,12 +249,11 @@ myTabTheme = def { fontName            = myFont
 
 -- Theme for showWName which prints current workspace when you change workspaces.
 myShowWNameTheme :: SWNConfig
-myShowWNameTheme = def
-    { swn_font              = "xft:Ubuntu:bold:size=60"
-    , swn_fade              = 1.0
-    , swn_bgcolor           = "#1c1f24"
-    , swn_color             = "#ffffff"
-    }
+myShowWNameTheme = def  { swn_font              = "xft:Ubuntu:bold:size=60"
+                        , swn_fade              = 1.0
+                        , swn_bgcolor           = "#1c1f24"
+                        , swn_color             = "#ffffff"
+                        }
 
 -- The layout hook
 myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats
@@ -304,13 +303,12 @@ myManageHook = composeAll
      , isFullscreen -->  doFullFloat
      ] <+> namedScratchpadManageHook myScratchPads
 -- prompt style
-myXPConfig = def
-  { position          = Bottom
-  , alwaysHighlight   = True
---  , promptBorderWidth = 2
-  , font              = "xft:monospace:size=9"
-  , borderColor       = myFocusColor
-  }
+myXPConfig = def {  position          = Bottom
+                  , alwaysHighlight   = True
+                --  , promptBorderWidth = 2
+                  , font              = "xft:monospace:size=9"
+                  , borderColor       = myFocusColor
+                 }
 
 myKeys :: XConfig l -> [(String, X (), String)]
 myKeys c =
@@ -340,25 +338,26 @@ myKeys c =
 --        , ("M-p s", spawn "dm-websearch") -- search various search engines
 
     -- Useful programs to have a keybinding for launch
-        , ("M-<Return>", spawn (myTerminal), "Spawn terminator")
-        , ("M-t", spawn ("alacritty"), "Spawn alacritty")
-        , ("M-S-t", spawn ("alacritty"), "Spawn alacritty")
+        , ("M-<Return>",   spawn (myTerminal),      "Spawn terminator")
+        , ("M-t",          spawn ("alacritty"),     "Spawn alacritty")
+        , ("M-S-t",        spawn ("alacritty"),     "Spawn alacritty")
          -- cant combine spawnando and normal code, so we just add a command
          -- one key away
-        , ("M-S-y", withFocused (sendMessage . mergeDir W.focusUp'), "Merge w -> tabs")
-        , ("M-S-<Return>", spawn ("alacritty"), "Spawn alacritty")
-        , ("M-w", spawn (myBrowser ++ " www.google.com"), "Spawn chromium")
-        , ("M-M1-h", spawn (myTerminal ++ " -e htop"), "Spawn htop")
+        , ("M-S-y",        withFocused (sendMessage . mergeDir W.focusUp'), "Merge w -> tabs")
+        , ("M-S-u",        withFocused (sendMessage . UnMerge),             "Unmerge w")
+        , ("M-S-<Return>", spawn ("alacritty"),                             "Spawn alacritty")
+        , ("M-w",          spawn (myBrowser ++ " www.google.com"),          "Spawn chromium")
+        , ("M-M1-h",       spawn (myTerminal ++ " -e htop"),                "Spawn htop")
 
     -- Kill windows
-        , ("M-S-c", kill1, "Kill window")     -- Kill the currently focused client
-        , ("M-S-a", killAll, "Kill all w in ws")   -- Kill all windows on current workspace
+        , ("M-S-c",        kill1,   "Kill window")     -- Kill the currently focused client
+        , ("M-S-a",        killAll, "Kill all w in ws")   -- Kill all windows on current workspace
 
     -- Workspaces
-        , ("M-<Right>", nextWS, "Cycle ws ->")  -- Switch focus to next monitor
-        , ("M-<Left>", prevWS, "Cycle ws <-")  -- Switch focus to prev monitor
-        , ("M-S-<Right>", shiftToNext >> nextWS, "move w to ws ->")       -- Shifts focused window to next ws
-        , ("M-S-<Left>", shiftToPrev >> prevWS, "move w to ws <-")  -- Shifts focused window to prev ws
+        , ("M-<Right>",     nextWS,                 "Cycle ws ->")  -- Switch focus to next monitor
+        , ("M-<Left>",      prevWS,                 "Cycle ws <-")  -- Switch focus to prev monitor
+        , ("M-S-<Right>",   shiftToNext >> nextWS,  "move w to ws ->")       -- Shifts focused window to next ws
+        , ("M-S-<Left>",    shiftToPrev >> prevWS,  "move w to ws <-")  -- Shifts focused window to prev ws
 
     -- Floating windows
 --        , ("M-<Space> f", sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
@@ -373,55 +372,55 @@ myKeys c =
 
     -- Grid Select (CTR-g followed by a key)
 --        , ("C-g g", spawnSelected' myAppGrid)                 -- grid select favorite apps
-        , ("M-g t", goToSelected $ mygridConfig myColorizer, "Window goto selector")  -- goto selected window
-        , ("M-g b", bringSelected $ mygridConfig myColorizer, "Window bring selector") -- bring selected window
+        , ("M-g t", goToSelected $ mygridConfig myColorizer,  "Goto w")  -- goto selected window
+        , ("M-g b", bringSelected $ mygridConfig myColorizer, "Bring w") -- bring selected window
 
     -- Windows navigation
-        , ("M-m m", windows W.focusMaster, "Move to master window")  -- Move focus to the master window
-        , ("M-<Tab>", windows W.focusDown, "Cycle window focus")    -- Move focus to the next window
-        , ("M-S-<Tab>", windows W.focusUp, "Cycle reversed window focus")      -- Move focus to the prev window
-        , ("M-<Up>", windows W.focusDown, "Move focus to next window")    -- Move focus to the next window
-        , ("M-<Down>", windows W.focusUp, "Move focus to prev window")      -- Move focus to the prev window
-        , ("M-S-m", windows W.swapMaster, "Swap master window") -- Swap the focused window and the master window
-        , ("M-S-j", windows W.swapDown, "Swap window with next")   -- Swap focused window with next window
-        , ("M-S-k", windows W.swapUp, "Swap window with prev")     -- Swap focused window with prev window
-        , ("M-<Backspace>", promote, "Promote window")      -- Moves focused window to master, others maintain order
+        , ("M-m m",         windows W.focusMaster,  "Goto Master w")  -- Move focus to the master window
+        , ("M-<Tab>",       windows W.focusDown,    "Cycle w")    -- Move focus to the next window
+        , ("M-S-<Tab>",     windows W.focusUp,      "Cycle w rev")      -- Move focus to the prev window
+        , ("M-<Up>",        windows W.focusDown,    "Cycle w")    -- Move focus to the next window
+        , ("M-<Down>",      windows W.focusUp,      "Cycle w rev")      -- Move focus to the prev window
+        , ("M-S-m",         windows W.swapMaster,   "w = master") -- Swap the focused window and the master window
+        , ("M-S-j",         windows W.swapDown,     "Swap w ->")   -- Swap focused window with next window
+        , ("M-S-k",         windows W.swapUp,       "Swap w <-")     -- Swap focused window with prev window
+        , ("M-<Backspace>", promote,                "Promote w")      -- Moves focused window to master, others maintain order
     --    , ("M-S-<Tab>", rotSlavesDown)    -- Rotate all windows except master and keep focus in place
     --    , ("M-C-<Tab>", rotAllDown)       -- Rotate all the windows in the current stack
 
     -- Layouts
-        , ("M-<Space>", sendMessage NextLayout, "Cycle layouts")           -- Switch to next layout
-        , ("M-f", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts, "Toggle fullscreen") -- Toggles noborder/full
+        , ("M-<Space>", sendMessage NextLayout,                                     "Cycle layouts")           -- Switch to next layout
+        , ("M-f",       sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts, "Toggle fullscreen") -- Toggles noborder/full
 
     -- Increase/decrease windows in the master pane or the stack
-        , ("M-S-<Up>", sendMessage (IncMasterN 1), "Increase # clients in master")      -- Increase # of clients master pane
-        , ("M-S-<Down>", sendMessage (IncMasterN (-1)), "Decrease # clients in master") -- Decrease # of clients master pane
-        , ("M-C-<Up>", increaseLimit, "Increase # windows")                   -- Increase # of windows
-        , ("M-C-<Down>", decreaseLimit, "Decrease # windows")                 -- Decrease # of windows
+        , ("M-S-<Up>",      sendMessage (IncMasterN 1),     "Increase # clients")      -- Increase # of clients master pane
+        , ("M-S-<Down>",    sendMessage (IncMasterN (-1)),  "Decrease # clients") -- Decrease # of clients master pane
+        , ("M-C-<Up>",      increaseLimit,                  "Increase # w")                   -- Increase # of windows
+        , ("M-C-<Down>",    decreaseLimit,                  "Decrease # w")                 -- Decrease # of windows
 
     -- Window resizing
-        , ("M-h", sendMessage Shrink, "Shrink window width")                   -- Shrink horiz window width
-        , ("M-l", sendMessage Expand, "Expand window widht")                   -- Expand horiz window width
-        , ("M-M1-j", sendMessage MirrorShrink, "Shrink window height")          -- Shrink vert window width
-        , ("M-M1-k", sendMessage MirrorExpand, "Expand window height")          -- Expand vert window width
+        , ("M-h",           sendMessage Shrink,             "Shrink window <->")                   -- Shrink horiz window width
+        , ("M-l",           sendMessage Expand,             "Expand window <->")                   -- Expand horiz window width
+        , ("M-M1-j",        sendMessage MirrorShrink,       "Shrink window ^-v")          -- Shrink vert window width
+        , ("M-M1-k",        sendMessage MirrorExpand,       "Expand window ^-v")          -- Expand vert window width
 
     -- Sublayouts
     -- This is used to push windows to tabbed sublayouts, or pull them out of it.
-        , ("M-C-h", withFocused (sendMessage . UnMerge), "Unmerge focussed window")
-        , ("M-C-l", withFocused (sendMessage . UnMerge), "Unmerge focussed window")
-        , ("M-C-k", withFocused (sendMessage . mergeDir W.focusDown'), "Merge window forwards")
-        , ("M-C-j", withFocused (sendMessage . mergeDir W.focusUp'), "Merge window backwards")
-        , ("M-C-m", withFocused (sendMessage . MergeAll), "Merge all windows in ws")
-        , ("M-C-u", withFocused (sendMessage . UnMerge), "Unmerge focussed window")
-        , ("M-C-/", withFocused (sendMessage . UnMergeAll), "Unmerge all windows in ws")
-        , ("M-C-.", onGroup W.focusUp', "Cycle focus forwards")    -- Switch focus to next tab
-        , ("M-C-,", onGroup W.focusDown', "Cycle focus backwards")  -- Switch focus to prev tab
+        , ("M-C-h", withFocused (sendMessage . UnMerge),                "Unmerge w")
+        , ("M-C-l", withFocused (sendMessage . UnMerge),                "Unmerge w")
+        , ("M-C-k", withFocused (sendMessage . mergeDir W.focusDown'),  "Merge w ->")
+        , ("M-C-j", withFocused (sendMessage . mergeDir W.focusUp'),    "Merge w <-")
+        , ("M-C-m", withFocused (sendMessage . MergeAll),               "Merge all w")
+        , ("M-C-u", withFocused (sendMessage . UnMerge),                "Unmerge w")
+        , ("M-C-/", withFocused (sendMessage . UnMergeAll),             "Unmerge all w")
+        , ("M-C-.", onGroup W.focusUp',                                 "Cycle w ->")    -- Switch focus to next tab
+        , ("M-C-,", onGroup W.focusDown',                               "Cycle w <-")  -- Switch focus to prev tab
 
     -- Scratchpads
     -- Toggle show/hide these programs.  They run on a hidden workspace.
     -- When you toggle them to show, it brings them to your current workspace.
     -- Toggle them to hide and it sends them back to hidden workspace (NSP).
-        , ("C-s t", namedScratchpadAction myScratchPads "terminal", "terminal scratchpad")
+        , ("C-s t", namedScratchpadAction myScratchPads "terminal", "terminal sp")
     --    , ("C-s c", namedScratchpadAction myScratchPads "calculator")
 
     -- Set wallpaper with 'feh'. Type 'SUPER+F1' to launch sxiv in the wallpapers directory.
@@ -431,31 +430,31 @@ myKeys c =
         --, ("M-<F2>", spawn "feh --randomize --bg-fill ~/wallpapers/*")
 
     -- Controls for spotify music player (SUPER-u followed by a key)
-        , ("M-M1-<Up>", spawn "spotify", "Launch spotiffy")
-        , ("M-M1-<Down>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause", "Play/Pause spotify")
-        , ("M-M1-<Left>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous", "Previous spotify song")
-        , ("M-M1-<Right>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next", "Next spotify song")
+        , ("M-M1-<Up>",     spawn "spotify", "Launch spotify")
+        , ("M-M1-<Down>",   spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause", "Pause spot")
+        , ("M-M1-<Left>",   spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous", "Prev song")
+        , ("M-M1-<Right>",  spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next", "Next song")
 
     -- Xbacklight keys
-        , ("<XF86MonBrightnessDown>", spawn "/run/current-system/sw/bin/xbacklight -dec 10", "Lower brightness by 10")
-        , ("S-<XF86MonBrightnessDown>", spawn "/run/current-system/sw/bin/xbacklight -dec 1", "lower brightness by 1")
-        , ("<XF86MonBrightnessUp>", spawn "/run/current-system/sw/bin/xbacklight -inc 10", "Increase brightness by 10")
-        , ("S-<XF86MonBrightnessUp>", spawn "/run/current-system/sw/bin/xbacklight -inc 1", "Increase brightness by 1")
+        , ("<XF86MonBrightnessDown>",   spawn "/run/current-system/sw/bin/xbacklight -dec 10", "Brightness -10%")
+        , ("S-<XF86MonBrightnessDown>", spawn "/run/current-system/sw/bin/xbacklight -dec 1", "Brightness -1%")
+        , ("<XF86MonBrightnessUp>",     spawn "/run/current-system/sw/bin/xbacklight -inc 10", "Brightness +10%")
+        , ("S-<XF86MonBrightnessUp>",   spawn "/run/current-system/sw/bin/xbacklight -inc 1", "Brightness +1%")
         -- map to F keys also
-        , ("M-<F5>", spawn "/run/current-system/sw/bin/xbacklight -dec 10", "Lower brightness by 10")
-        , ("M-S-<F5>", spawn "/run/current-system/sw/bin/xbacklight -dec 1", "Lower brightness by 1")
-        , ("M-<F6>", spawn "/run/current-system/sw/bin/xbacklight -inc 10", "Increase brightness by 10")
-        , ("M-S-<F6>", spawn "/run/current-system/sw/bin/xbacklight -inc 1", "Increase brightness by 1")
+        , ("M-<F5>",   spawn "/run/current-system/sw/bin/xbacklight -dec 10", "Brightness -10%")
+        , ("M-S-<F5>", spawn "/run/current-system/sw/bin/xbacklight -dec 1",  "Brightness -1%")
+        , ("M-<F6>",   spawn "/run/current-system/sw/bin/xbacklight -inc 10", "Brightness +10%")
+        , ("M-S-<F6>", spawn "/run/current-system/sw/bin/xbacklight -inc 1",  "Brightness +1%")
 
        -- Multimedia Keys
-        , ("<XF86AudioMute>", spawn "amixer set Master toggle", "Toggle mute")
-        , ("<XF86AudioLowerVolume>", spawn "amixer set Master 10%- unmute", "Decrease volume by 10%")
-        , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 10%+ unmute", "Increase volume by 10%")
+        , ("<XF86AudioMute>",        spawn "amixer set Master toggle",      "Toggle mute")
+        , ("<XF86AudioLowerVolume>", spawn "amixer set Master 10%- unmute", "Volume -10%")
+        , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 10%+ unmute", "Volume +10%")
        -- multiply with shift
-        , ("S-<XF86AudioLowerVolume>", spawn "amixer set Master 2%- unmute", "Decrease volume by 2%")
-        , ("S-<XF86AudioRaiseVolume>", spawn "amixer set Master 2%+ unmute", "Increase voluem by 2%")
-        , ("M-<Print>", spawn "scrot", "Take a screenshot")
-        , ("M-<F1>",       unGrab >> showHelp, "Show Help")
+        , ("S-<XF86AudioLowerVolume>", spawn "amixer set Master 2%- unmute", "Volume -2%")
+        , ("S-<XF86AudioRaiseVolume>", spawn "amixer set Master 2%+ unmute", "Volume +2%")
+        , ("M-<Print>",                spawn "scrot",                        "Printscreen")
+        , ("M-<F1>",                   unGrab >> showHelp,                   "Show Help")
         ]
         where
             showHelp = spawn $ unwords [ "/etc/nixos/modules/xmobar/showHintForKeymap.sh"
