@@ -117,6 +117,22 @@ rec {
     enable = true;
   };
 
+  #save my eyes please
+  location.latitude = 52.314487;
+  location.longitude = 4.64127;
+
+  services.redshift = {
+    enable = true;
+    brightness = {
+      day = "1";
+      night = "1";
+    };
+    temperature = {
+      day = 5500;
+      night = 3700;
+    };
+  };
+
 #  services.xserver.displayManager.sessionCommands = builtins.concatStringsSep "\n" [
   #  "${pkgs.terminator}/bin/terminator -e \"fish -c 'while true; panther; end'\" &"
 #    "${pkgs.networkmanagerapplet}/bin/nm-applet &"
