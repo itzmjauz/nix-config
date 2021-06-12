@@ -76,6 +76,11 @@ rec {
       "oh-my-fish/theme-agnoster"
     ];
   };
+  # browser
+  programs.chromium = {
+    enable = true;
+    extensions = [ "eimadpbcbfnmbkopoojfekhnkhdbieeh"];
+  };
 
   users = let
     attrs = {
@@ -170,11 +175,11 @@ rec {
     # screen settings/setup/utility
     xcompmgr arandr xorg.xbacklight #backlight settings ( utilised through awesome configs as well )
     # window manager
-    xorg.xdpyinfo dzen2 xdotool feh xmobar trayer volumeicon networkmanagerapplet
+    libnotify xorg.xdpyinfo dzen2 xdotool feh xmobar trayer volumeicon networkmanagerapplet
     # shell/terminals
     fish terminator alacritty
     # browser - music 
-    chromium spotify
+    chromium spotify neomutt
     # web development
     nodejs
     # programming / compilation / low-level development
@@ -188,7 +193,7 @@ rec {
     # editor, installed in their respective configs 
     tree-sitter kak-lsp rust-analyzer # vim_configurable kakoune
     # ssh / utility
-    mosh
+    mosh tmux
     # utility
     gtk-icons compton pass gnupg alsaUtils gnome3.eog unzip
   ];
