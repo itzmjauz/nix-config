@@ -4,6 +4,9 @@
     systemPackages = [ pkgs.tmux ];
 
     etc."tmux.conf".text = ''
+      # delays in escaping insert mode in kakoune
+      set -sg escape-time 0
+
       # remap prefix from c-b to c-a 
       unbind C-b
       set-option -g prefix C-a
