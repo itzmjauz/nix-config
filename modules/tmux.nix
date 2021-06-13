@@ -22,6 +22,10 @@
       bind -n M-Up select-pane -U
       bind -n M-Down select-pane -D
 
+      # easier window switching
+      bind -n M-S-Left previous-window
+      bind -n M-S-Right next-window
+
       # enable mouse control
       # since tmux 2.1+ this is one command
       set -g mouse on
