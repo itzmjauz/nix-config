@@ -29,37 +29,36 @@
       # don't rename automatically
       set-option -g allow-rename off
 
-      # loud or quiet
-      #set -g visual-activity off
-      #set -g visual-bell off
-      #set -g visual-silence off
-      #setw -g monitor-acitvity on
-      #set -g bell-action none
 
-      # modes
-      setw -g clock-mode-colour colour5
-      setw -g mode-style 'fg=colour1 bg=colour18 bold'
+      #### COLOUR (Solarized 256)
 
-      # panes
-      set -g pane-border-style 'fg=colour19 bg=colour0'
-      set -g pane-active-border-style 'bg=colour0 fg=colour9'
+      # default statusbar colors
+      set-option -g status-style fg=colour136,bg=colour235 #yellow and base02
 
-      # statusbar
-      set -g status-position bottom
-      set -g status-justify left
-      set -g status-style 'bg=colour18 fg=colour137 dim'
-      set -g status-right '#[fg=colour233, bg=colour19] %d/%m #[fg=colour233, bg=colour8] %H:%M:%S '
-      set -g window-status-current-style 'fg=colour1 bg=colour19 bold'
-      set -g window-status-current-format '#I#[fg=colour249]:#[fg=colour255]#W#[fg=colour249]#F '
+      # default window title colors
+      set-window-option -g window-status-style fg=colour244,bg=default #base0 and default
+      #set-window-option -g window-status-style dim
 
-      set -g window-status-style 'fg=colour9 bg=colour18'
-      set -g window-status-format '#I#[fg=colour237]:#[fg=colour250]#W#[fg=colour244]#F '
+      # active window title colors
+      set-window-option -g window-status-current-style fg=colour166,bg=default #orange and default
+      #set-window-option -g window-status-current-style bright
 
-      set -g window-status-bell-style 'fg=colour255 bg=colour1 bold'
+      # pane border
+      set-option -g pane-border-style fg=colour235 #base02
+      set-option -g pane-active-border-style fg=colour240 #base01
 
-      # messages
-      set -g message-style 'fg=colour232 bg=colour16  bold'
-        
-    '';
+      # message text
+      set-option -g message-style fg=colour166,bg=colour235 #orange and base02
+
+      # pane number display
+      set-option -g display-panes-active-colour colour33 #blue
+      set-option -g display-panes-colour colour166 #orange
+
+      # clock
+      set-window-option -g clock-mode-colour colour64 #green
+
+      # bell
+      set-window-option -g window-status-bell-style fg=colour235,bg=colour160 #base02, red
+      '';
   };
 }
