@@ -23,9 +23,6 @@
       bind -n M-Down select-pane -D
 
       # enable mouse control
-      set -g mouse-select-window on
-      set -g mouse-select-pane on
-      set -g mouse-resize-pane on
       # since tmux 2.1+ this is one command
       set -g mouse on
 
@@ -63,8 +60,6 @@
       # messages
       set -g message-style 'fg=colour232 bg=colour16  bold'
         
-      ,
-
     '';
   };
 }
