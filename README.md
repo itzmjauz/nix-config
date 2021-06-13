@@ -3,9 +3,15 @@ Nixos system configurations
 
 Configurations for my systems running nixos
 
+The current configuration is largely built around nightingale.
+Portability will increase whenever I get around to running a second nixos machine.
+
 System setup
 --------------------------
 All systems use a zfs - luks encrypted setup, and should thus be set up accordingly. 
+It is loosely based on the setup described in https://nixos.org/manual/nixos/stable/
+But with an encrypted root partition, with a ZFS filesystem.
+Instructions are on https://nixos.wiki/wiki/NixOS_on_ZFS for the general setup.
 
 Configurations
 --------------------------
@@ -13,6 +19,19 @@ Nixos allows for my terminal, vim, fish and awesomewm setups to be configured th
 
 TODO
 --------------------------
-Prerably automatically recognize the system hostname / or some other identifying parameter to automatically identify which system config to run.
+- [ ] Reorganize vim config (put it under pkgs again with its own config?)
+- [ ] Reorganize alacritty , put it under pkgs 
+- [ ] Reorganize wm setup (xmonad mainly) into its own submodule, instead of under modules/ directly
+- [ ] Put chromium setup into its own file (even though its only 1 line)
+- [ ] Host specific configs
+- [ ] Move from Vim to Neovim when the config allows
+- [ ] Setup automatic mail sync 
+- [ ] Hopefully switch themes live in alacritty (similar to what terminator can do) 
+- [ ] Write config files of vim to the standard location instead of manually loading it from /etc/nixos/, 
+- [ ] Same for alacritty ^ 
+- [ ] Same for kakoune ^ 
 
-Want to run neovim over vim, but neovim.override behaves differently than vim_configurable.customize, although the docs do not seem to reflect this.
+- [ ] Write better system setup details
+
+
+Note: not so sure about switching separate config files to .nix variants, since right now I can download one of the files and use it directly on any other system.
