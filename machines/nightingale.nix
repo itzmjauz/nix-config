@@ -187,13 +187,13 @@ rec {
     # package management 
     rustup python38Packages.pip
     # development / utility
-    ctags git git-hub evince
+    ctags git git-hub evince nix-index
     # offensive/defense pentesting toolsi [TODO Nikto is in unstable]
     msf radare2 radare2-cutter nmap python38Packages.pwntools gobuster
     # editor, installed in their respective configs 
     tree-sitter kak-lsp rust-analyzer # vim_configurable kakoune
-    # ssh / utility
-    mosh tmux
+    # ssh / utility / steam-run is big, but allows for easy running of benign binaries (without linking issues)
+    mosh tmux tree steam-run
     # utility
     gtk-icons compton pass gnupg alsaUtils gnome3.eog unzip
   ];
