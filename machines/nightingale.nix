@@ -169,7 +169,7 @@ rec {
     # configs
     terminatorsauce awesomesauce # terminator/awesome configs
     # Deployment tools
-    nixops
+    nixops qemu
     # setup fundamentals
     wget pkgs.boot acpi which xorg.xf86inputsynaptics powertop htop whois file
     # screen settings/setup/utility
