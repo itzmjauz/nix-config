@@ -318,7 +318,7 @@ myKeys c =
         , ("M-S-q", io exitSuccess, "Quit XMonad")              -- Quits xmonad
 
     -- Run Prompt
-        , ("M-S-r", shellPrompt myXPConfig, "Open shell prompt")
+        --, ("M-S-r", shellPrompt myXPConfig, "Open shell prompt")
         , ("M-r", spawn ("rofi -show drun"), "Rofi run mode")
         , ("M-s", spawn ("rofi -show window"), "Rofi window swap")
 
@@ -444,10 +444,10 @@ myKeys c =
         , ("<XF86MonBrightnessUp>",     spawn "/run/current-system/sw/bin/xbacklight -inc 10", "Brightness +10%")
         , ("S-<XF86MonBrightnessUp>",   spawn "/run/current-system/sw/bin/xbacklight -inc 1", "Brightness +1%")
         -- map to F keys also
-        , ("M-<F5>",   spawn "/run/current-system/sw/bin/xbacklight -dec 10", "Brightness -10%")
-        , ("M-S-<F5>", spawn "/run/current-system/sw/bin/xbacklight -dec 1",  "Brightness -1%")
-        , ("M-<F6>",   spawn "/run/current-system/sw/bin/xbacklight -inc 10", "Brightness +10%")
-        , ("M-S-<F6>", spawn "/run/current-system/sw/bin/xbacklight -inc 1",  "Brightness +1%")
+        --, ("M-<F5>",   spawn "/run/current-system/sw/bin/xbacklight -dec 10", "Brightness -10%")
+        --, ("M-S-<F5>", spawn "/run/current-system/sw/bin/xbacklight -dec 1",  "Brightness -1%")
+        --, ("M-<F6>",   spawn "/run/current-system/sw/bin/xbacklight -inc 10", "Brightness +10%")
+        --, ("M-S-<F6>", spawn "/run/current-system/sw/bin/xbacklight -inc 1",  "Brightness +1%")
 
        -- Multimedia Keys
         , ("<XF86AudioMute>",        spawn "amixer set Master toggle",      "Toggle mute")
