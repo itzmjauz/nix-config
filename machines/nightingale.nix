@@ -13,6 +13,7 @@ rec {
   ];
 
   environment.variables.EDITOR = "vim";
+  # enable flakes
   nix = { 
     package = pkgs.nixFlakes; 
     extraOptions = lib.optionalString 
@@ -35,7 +36,6 @@ rec {
       ];
     };
     desktopManager.xterm.enable = false;
-#    displayManager.defaultSession = "none+xmonad";
     synaptics = {
       enable = true;
       tapButtons = false;
@@ -44,11 +44,11 @@ rec {
     xkbOptions = "compose:caps";
     displayManager.lightdm = {
       enable = true;
-#      greeters.mini = {
-#        enable = true;
-#        user = "itzmjauz";
-#      };
-#      theme = ../slim-theme;
+      greeters.mini = {
+        enable = true;
+        user = "itzmjauz";
+      };
+#      theme = ../slim-theme; slim is deprecated..
     };
   };
 
@@ -58,15 +58,14 @@ rec {
     before = ["local-fs.target" "multi-user.target" "sysinit.target"];
   };
   systemd.services.zfs-mount.requires = ["zfs-import.target"];
+
   networking.firewall.enable = true;
-
   networking.networkmanager.enable = true;
-
   hardware.pulseaudio.enable = true;
   nixpkgs.config.allowUnfree = true;
-  #nixpkgs.config.chromium.enableWideVine = true;
+  #nixpkgs.config.chromium.enableWideVine = true; # for netflix
 
-
+  # shell + theme
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -79,7 +78,7 @@ rec {
   # browser
   programs.chromium = {
     enable = true;
-    extensions = [ "eimadpbcbfnmbkopoojfekhnkhdbieeh"];
+    extensions = [ "eimadpbcbfnmbkopoojfekhnkhdbieeh"]; # dark-theme(toggle for each site)
   };
 
   users = let
@@ -188,8 +187,8 @@ rec {
     rustup python38Packages.pip
     # development / utility
     ctags git git-hub evince nix-index
-    # offensive/defense pentesting toolsi [TODO Nikto is in unstable]
-    msf radare2 radare2-cutter nmap python38Packages.pwntools gobuster
+    # offensive/defense pentesting toolsi 
+    msf radare2 radare2-cutter nmap python38Packages.pwntools gobuster nikto
     # editor, installed in their respective configs 
     tree-sitter kak-lsp rust-analyzer # vim_configurable kakoune
     # ssh / utility / steam-run is big, but allows for easy running of benign binaries (without linking issues)
