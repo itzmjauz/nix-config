@@ -154,7 +154,7 @@ rec {
     "vt.default_blu=0x42,0x2f,0x00,0x00,0xd2,0x82,0x98,0xd5,0x36,0x16,0x75,0x83,0x96,0xc4,0xa1,0xe3"
   ];
 
-  services.openssh.enable = false;# set to true for ssh server
+  services.openssh.enable = true;# set to true for ssh server
   virtualisation.docker.enable = false;
 
   # services.postgresql.enable = true
@@ -169,11 +169,11 @@ rec {
     # configs
     terminatorsauce awesomesauce # terminator/awesome configs
     # Deployment tools
-    nixops qemu
+    qemu #nixops python pkgs broken
     # setup fundamentals
     wget pkgs.boot acpi which xorg.xf86inputsynaptics powertop htop whois file
     # screen settings/setup/utility
-    xcompmgr arandr xorg.xbacklight #backlight settings ( utilised through awesome configs as well )
+    rofi xcompmgr arandr xorg.xbacklight #backlight settings ( utilised through awesome configs as well )
     # window manager
     libnotify xorg.xdpyinfo dzen2 xdotool feh xmobar trayer volumeicon networkmanagerapplet
     # shell/terminals

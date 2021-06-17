@@ -318,7 +318,10 @@ myKeys c =
         , ("M-S-q", io exitSuccess, "Quit XMonad")              -- Quits xmonad
 
     -- Run Prompt
-        , ("M-r", shellPrompt myXPConfig, "Open shell prompt")
+        , ("M-S-r", shellPrompt myXPConfig, "Open shell prompt")
+        , ("M-r", spawn ("rofi -show drun"), "Rofi run mode")
+        , ("M-s", spawn ("rofi -show window"), "Rofi window swap")
+
  --       , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
 
     -- Other Dmenu Prompts
