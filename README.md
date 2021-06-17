@@ -23,7 +23,7 @@ TODO
 - [ ] Reorganize alacritty , put it under pkgs 
 - [ ] Reorganize wm setup (xmonad mainly) into its own submodule, instead of under modules/ directly
 - [ ] Put chromium setup into its own file (even though its only 1 line)
-- [ ] Host specific configs
+- [X] Host specific configs
 - [ ] Move from Vim to Neovim when the config allows
 - [ ] Setup automatic mail sync 
 - [ ] Hopefully switch themes live in alacritty (similar to what terminator can do) 
