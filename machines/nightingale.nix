@@ -2,7 +2,7 @@
 with lib;
 rec {
   imports = [
-    ../boot
+    ../boot/nightingale-boot.nix
     <nixpkgs/nixos/modules/profiles/all-hardware.nix>
     #<nixpkgs/nixos/modules/config/fonts/fontconfig-ultimate.nix>
     ../kernel.nix
