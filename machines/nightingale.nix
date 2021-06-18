@@ -182,7 +182,7 @@ rec {
     # web development
     nodejs
     # programming / compilation / low-level development
-    gdb gcc ghc clojure ctags rustup python3
+    gdb gcc ghc clojure ctags rustup python3 rustc
     # package management 
     rustup python38Packages.pip
     # development / utility
