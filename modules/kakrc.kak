@@ -29,7 +29,8 @@
 # ###
 
 # gruvbox!
-colorscheme solarized-dark
+#colorscheme solarized-dark
+colorscheme gruvbox
 
 # save a bit of window space by removing clippy from popups
 set global ui_options ncurses_assistant=off
