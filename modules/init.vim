@@ -5,6 +5,7 @@ let &encoding = 'utf-8'
 set shell=/bin/sh
 set hidden
 set undofile
+set undodir=~/.undodir
 
 " {{ keyboard behaviour
 let mapleader=","
