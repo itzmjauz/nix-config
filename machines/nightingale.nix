@@ -194,6 +194,6 @@ rec {
     # ssh / utility / steam-run is big, but allows for easy running of benign binaries (without linking issues)
     mosh tmux tree steam-run
     # utility
-    gtk-icons compton pass gnupg alsaUtils gnome3.eog unzip
+    gtk-icons compton pass gnupg alsaUtils gnome3.eog unzip exa
   ];
 }
