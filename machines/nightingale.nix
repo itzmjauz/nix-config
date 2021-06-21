@@ -180,7 +180,7 @@ rec {
     # browser - music 
     chromium spotify neomutt
     # web development
-    nodejs
+    nodejs vscode-with-extensions
     # programming / compilation / low-level development
     gdb gcc ghc clojure ctags rustup python3 rustc
     # package management 
