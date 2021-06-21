@@ -131,7 +131,7 @@ myStartupHook = do
     --spawnOnce "conky -c $HOME/.config/conky/xmonad.conkyrc"
     spawnOnce "trayer --edge bottom --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
     spawnOnce "kak -d -s mysession &"  -- kakoune daemon for better performance
-    spawnOnce "feh --randomize --bg-fill /etc/nixos/modules/wallpapers/*"  -- feh set random wallpaper
+    spawnOnce "feh --randomize --bg-fill /etc/nixos/modules/xmonad/wallpapers/*"  -- feh set random wallpaper
     setWMName "LG3D"
 
 myColorizer :: Window -> Bool -> X (String, String)
@@ -439,10 +439,10 @@ myKeys c =
         , ("M-M1-<Right>",  spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next", "Next song")
 
     -- Xbacklight keys
-        , ("<XF86MonBrightnessDown>",   spawn "/run/current-system/sw/bin/xbacklight -dec 10", "Brightness -10%")
-        , ("S-<XF86MonBrightnessDown>", spawn "/run/current-system/sw/bin/xbacklight -dec 1", "Brightness -1%")
-        , ("<XF86MonBrightnessUp>",     spawn "/run/current-system/sw/bin/xbacklight -inc 10", "Brightness +10%")
-        , ("S-<XF86MonBrightnessUp>",   spawn "/run/current-system/sw/bin/xbacklight -inc 1", "Brightness +1%")
+        --, ("<XF86MonBrightnessDown>",   spawn "/run/current-system/sw/bin/xbacklight -dec 10", "Brightness -10%")
+        --, ("S-<XF86MonBrightnessDown>", spawn "/run/current-system/sw/bin/xbacklight -dec 1", "Brightness -1%")
+        --, ("<XF86MonBrightnessUp>",     spawn "/run/current-system/sw/bin/xbacklight -inc 10", "Brightness +10%")
+        --, ("S-<XF86MonBrightnessUp>",   spawn "/run/current-system/sw/bin/xbacklight -inc 1", "Brightness +1%")
         -- map to F keys also
         --, ("M-<F5>",   spawn "/run/current-system/sw/bin/xbacklight -dec 10", "Brightness -10%")
         --, ("M-S-<F5>", spawn "/run/current-system/sw/bin/xbacklight -dec 1",  "Brightness -1%")
@@ -460,7 +460,7 @@ myKeys c =
         , ("M-<F1>",                   unGrab >> showHelp,                   "Show Help")
         ]
         where
-            showHelp = spawn $ unwords [ "/etc/nixos/modules/xmobar/showHintForKeymap.sh"
+            showHelp = spawn $ unwords [ "/etc/nixos/modules/xmonad/plume/xmobar/showHintForKeymap.sh"
                                 , desc
                                 , "dzen_xmonad"
                                 , show (30 :: Integer)
@@ -473,7 +473,7 @@ myKeys c =
 keyMapDoc :: String -> String -> String -> Int -> X Handle
 keyMapDoc desc id color delay = do
   -- focused screen location/size
-    handle <- spawnPipe $ unwords [ "/etc/nixos/modules/xmobar/showHintForKeymap.sh"
+    handle <- spawnPipe $ unwords [ "/etc/nixos/modules/xmonad/plume/xmobar/showHintForKeymap.sh"
                                   , desc
                                   , id
                                   , "22"
@@ -533,7 +533,7 @@ myWorkspaceKeys = [((m .|. myModMask, k), f i)
 main :: IO ()
 main = do
     -- Launching three instances of xmobar on their monitors.
-    xmproc0 <- spawnPipe "xmobar -x 0 /etc/nixos/modules/xmobar/xmobarrc0"
+    xmproc0 <- spawnPipe "xmobar -x 0 /etc/nixos/modules/xmonad/plume/xmobar/xmobarrc0"
     -- the xmonad, ya know...what the WM is named after!
     xmonad $ ewmh def
         { manageHook         = myManageHook <+> manageDocks

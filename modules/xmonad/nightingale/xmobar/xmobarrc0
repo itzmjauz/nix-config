@@ -14,7 +14,7 @@ Config { font    = "xft:Mononoki Nerd Font:weight=bold:pixelsize=12:antialias=tr
        , hideOnStart = False
        , allDesktops = True
        , persistent = True
-       , iconRoot = "/etc/nixos/modules/xmonad-icons/"  -- default: "."
+       , iconRoot = "/etc/nixos/modules/xmonad/xmonad-icons/"  -- default: "."
        , commands = [
                     -- Time and date
                       Run Date "<fn=2>\xf017</fn>  %b %d %Y - (%H:%M) " "date" 50
@@ -25,7 +25,7 @@ Config { font    = "xft:Mononoki Nerd Font:weight=bold:pixelsize=12:antialias=tr
                       -- Ram used number and percent
                     , Run Memory ["-t", "<fn=2>\xf233</fn>  mem: <used>M (<usedratio>%)"] 20
                       -- Disk space free
-                    , Run Com "/etc/nixos/modules/xmobar/diskusage.sh" [] "disk" 60
+                    , Run Com "/etc/nixos/modules/xmonad/nightingale/xmobar/diskusage.sh" [] "disk" 60
                     , Run Battery [
                       "-t", "<acstatus>: <left> - <timeleft>",
                       "-W", "0",

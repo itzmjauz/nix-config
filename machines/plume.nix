@@ -27,7 +27,7 @@ rec {
     #windowManager.awesome.enable = true;
     windowManager.xmonad = {
       enable = true;
-      config = builtins.readFile ./../modules/xmonad.hs;
+      config = builtins.readFile ./../modules/xmonad/plume/xmonad.hs;
       enableContribAndExtras = true;
       extraPackages = haskellPackackages: with pkgs.haskellPackages; [
         pkgs.haskellPackages.xmonad-contrib
