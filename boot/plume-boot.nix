@@ -38,7 +38,7 @@ in
   boot = {
     loader = {
       systemd-boot.enable = true;
-      timeout = 0;
+      timeout = 2;
     };
 
     supportedFilesystems = [ "zfs" ];
@@ -48,5 +48,5 @@ in
   };
 
   # high-resolution display
-  hardware.video.hidpi.enable = lib.mkDefault true;
+  # hardware.video.hidpi.enable = lib.mkDefault true;
 }

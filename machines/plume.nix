@@ -44,11 +44,10 @@ rec {
     xkbOptions = "compose:caps";
     displayManager.lightdm = {
       enable = true;
-      #greeters.mini = {
-      #  enable = true;
-      #  user = "itzmjauz";
-      #};
-#      theme = ../slim-theme; slim is deprecated..
+      greeters.mini = {
+        enable = true;
+        user = "itzmjauz";
+      };
     };
   };
 
