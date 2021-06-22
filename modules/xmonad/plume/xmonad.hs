@@ -457,6 +457,7 @@ myKeys c =
         , ("S-<XF86AudioLowerVolume>", spawn "amixer set Master 2%- unmute", "Volume -2%")
         , ("S-<XF86AudioRaiseVolume>", spawn "amixer set Master 2%+ unmute", "Volume +2%")
         , ("M-<Print>",                spawn "scrot",                        "Printscreen")
+        , ("M-S-<Print>",              spawn "flameshot gui",                "Printscreen")
         , ("M-<F1>",                   unGrab >> showHelp,                   "Show Help")
         ]
         where
