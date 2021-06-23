@@ -22,6 +22,11 @@ define-command -params 0 -docstring %{
   	}
 }
 
+# tabs to spaces
+hook global InsertChar \t %{
+    exec -draft h@
+}
+
 # enable lsp for rust
 eval %sh{kak-lsp --kakoune -s $kak_session}  # Not needed if you load it with plug.kak.
 
