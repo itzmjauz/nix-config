@@ -93,7 +93,7 @@ green   = "#859900"
 black   = "#000000"
 
 myFont :: String
-myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=11:antialias=true:hinting=true"
+myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=15:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask        -- Sets modkey to super/windows key
@@ -129,7 +129,7 @@ myStartupHook = do
     spawnOnce "nm-applet &"
     spawnOnce "volumeicon &"
     --spawnOnce "conky -c $HOME/.config/conky/xmonad.conkyrc"
-    spawnOnce "trayer --edge bottom --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
+    spawnOnce "trayer --edge bottom --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 32 &"
     spawnOnce "kak -d -s mysession &"  -- kakoune daemon for better performance
     spawnOnce "feh --randomize --bg-fill /etc/nixos/modules/xmonad/wallpapers/*"  -- feh set random wallpaper
     setWMName "LG3D"
@@ -343,8 +343,8 @@ myKeys c =
     -- Useful programs to have a keybinding for launch
         , ("M-<Return>",   spawn (myTerminal),      "Spawn terminator")
         , ("M-S-<Return>",   spawn (myTerminal ++ " -e tmux"),      "terminator + tmux")
-        , ("M-t",          spawn ("alacritty"),     "Spawn alacritty")
-        , ("M-S-t",        spawn ("alacritty -e tmux"),     "Alacritty + tmux")
+        , ("M-t",          spawn ("alacritty -o font.size=15 "),     "Spawn alacritty")
+        , ("M-S-t",        spawn ("alacritty -o font.size=15 -e tmux"),     "Alacritty + tmux")
          -- cant combine spawnando and normal code, so we just add a command
          -- one key away
         , ("M-S-y",        withFocused (sendMessage . mergeDir W.focusUp'), "Merge w -> tabs")

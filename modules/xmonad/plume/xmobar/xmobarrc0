@@ -3,9 +3,9 @@
 -- install this package from the AUR to get these fonts: otf-font-awesome-5-free
 
 Config { font    = "xft:Mononoki Nerd Font:weight=bold:pixelsize=18:antialias=true:hinting=true"
-       , additionalFonts = [ "xft:Mononoki Nerd Font:pixelsize=11:antialias=true:hinting=true"
-                           , "xft:Font Awesome 5 Free Solid:pixelsize=16"
-                           , "xft:Font Awesome 5 Brands:pixelsize=16"
+       , additionalFonts = [ "xft:Mononoki Nerd Font:pixelsize=18:antialias=true:hinting=true"
+                           , "xft:Font Awesome 5 Free Solid:pixelsize=18"
+                           , "xft:Font Awesome 5 Brands:pixelsize=18"
                            ]
        , bgColor = "#282c34"
        , fgColor = "#ff6c6b"
@@ -30,5 +30,5 @@ Config { font    = "xft:Mononoki Nerd Font:weight=bold:pixelsize=18:antialias=tr
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <icon=haskell_20.xpm/><fc=#666666> | </fc> %UnsafeStdinReader% }{<fc=#666666>|</fc><fc=#ecbe7b> <action=`terminator -e htop`> %cpu%</action> </fc> <fc=#666666>|</fc><fc=#ff6c6b> <action=`terminator -e htop`> %memory%</action> </fc> <fc=#666666>|</fc><fc=#51afef> %disk%</fc> <fc=#666666>|</fc><fc=#98be65> <action=`terminator -e sudo iftop`> %eth0%</action> </fc> <fc=#666666>|</fc><fc=#46d9ff> %date%           </fc>"
+       , template = " <icon=haskell_20.xpm/><fc=#666666> | </fc> %UnsafeStdinReader% }{<fc=#666666>|</fc><fc=#ecbe7b> <action=`terminator -e htop`> %cpu%</action> </fc> <fc=#666666>|</fc><fc=#ff6c6b> <action=`terminator -e htop`> %memory%</action> </fc> <fc=#666666>|</fc><fc=#51afef> %disk%</fc> <fc=#666666>|</fc><fc=#98be65> <action=`terminator -e sudo iftop`> %eth0%</action> </fc> <fc=#666666>|</fc><fc=#46d9ff> %date% |                 </fc>"
        }
