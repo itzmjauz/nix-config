@@ -41,7 +41,7 @@ hook global WinSetOption filetype=(rust) %{ # enable per filetype
 	lsp-enable-window
     lsp-auto-hover-enable
     lsp-auto-signature-help-enable
-    lsp-inlay-diagnostics-enable window
+#    lsp-inlay-diagnostics-enable window
 
 	# rust inlay hints
     hook window -group rust-inlay-hints BufReload .* rust-analyzer-inlay-hints
