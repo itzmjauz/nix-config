@@ -21,6 +21,11 @@ rec {
       "experimental-features = nix-command flakes"; 
   };
 
+  # neovim overlay for 0.5
+  nixpkgs.overlays = [
+    (import ./../overlays/neovim.nix)
+  ];
+
   services.xserver = {
     enable = true;
     #    plainX = true;
@@ -107,6 +112,7 @@ rec {
   nix.nixPath = pkgs.lib.mkBefore [
     "nixos-config=/etc/nixos/configuration.nix"
     "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs"
+    "nixpkgs-overlays=/etc/nixos/overlays"
   ];
 
   hardware.opengl.driSupport32Bit = true;

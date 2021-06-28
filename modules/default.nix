@@ -7,5 +7,6 @@
     ./kakoune.nix
     ./alacritty.nix
     ./tmux.nix
+    ./nvim/nvim.nix
   ];
 }
