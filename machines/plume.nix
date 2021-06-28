@@ -21,6 +21,11 @@ rec {
       "experimental-features = nix-command flakes"; 
   };
 
+  # neovim overlay for 0.5(nightly)
+  nixpkgs.overlays  = [
+    (import ./../overlays/neovim.nix)
+  ];
+
   services.xserver = {
     enable = true;
     #    plainX = true;
@@ -99,12 +104,19 @@ rec {
   fonts = {
     fontDir.enable = true;
     enableGhostscriptFonts = true;
-    fonts = with pkgs; [ source-code-pro carlito font-awesome mononoki ];
+    fonts = with pkgs; [ 
+      source-code-pro 
+      carlito 
+      font-awesome 
+      mononoki
+      (nerdfonts.override { fonts = ["FiraCode"]; })
+    ];
   };
 
   nix.nixPath = pkgs.lib.mkBefore [
     "nixos-config=/etc/nixos/configuration.nix"
     "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs"
+    "nixpkgs-overlays=/etc/nixos/overlays"
   ];
 
   hardware.opengl.driSupport32Bit = true;
