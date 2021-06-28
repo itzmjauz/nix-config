@@ -35,12 +35,16 @@ rec {
         pkgs.haskellPackages.split
       ];
     };
-    desktopManager.xterm.enable = false;
-    synaptics = {
-      enable = true;
-      tapButtons = false;
-      twoFingerScroll = true;
+    libinput = {
+        enable = true;
+        mouse = {
+		naturalScrolling = true;
+                additionalOptions = ''
+        		Option "ScrollPixelDistance" "50"
+                '';
+        };
     };
+    desktopManager.xterm.enable = false;
     xkbOptions = "compose:caps";
     displayManager.lightdm = {
       enable = true;
@@ -184,8 +188,8 @@ rec {
     # editor, installed in their respective configs 
     tree-sitter kak-lsp rust-analyzer # vim_configurable kakoune
     # ssh / utility / steam-run is big, but allows for easy running of benign binaries (without linking issues)
-    mosh tmux tree steam-run
+    mosh tmux tree steam-run steam
     # utility
-    gtk-icons compton pass gnupg alsaUtils gnome3.eog unzip exa scrot flameshot
+    gtk-icons compton pass gnupg alsaUtils gnome3.eog unzip exa scrot flameshot discord
   ];
 }
