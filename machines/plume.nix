@@ -12,7 +12,7 @@ rec {
       })
   ];
 
-  environment.variables.EDITOR = "vim";
+  environment.variables.EDITOR = "kak";
   # enable flakes
   nix = { 
     package = pkgs.nixFlakes; 
@@ -176,13 +176,13 @@ rec {
     # browser - music 
     chromium spotify neomutt
     # web development
-    nodejs
+    nodejs vscode-with-extensions
     # programming / compilation / low-level development
     gdb gcc ghc clojure ctags rustup python3 rustc
     # package management 
     rustup python38Packages.pip
     # development / utility
-    ctags git git-hub evince nix-index
+    ctags git git-hub evince nix-index ranger du-dust
     # offensive/defense pentesting toolsi 
     msf radare2 radare2-cutter nmap python38Packages.pwntools gobuster nikto
     # editor, installed in their respective configs 
