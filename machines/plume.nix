@@ -40,7 +40,7 @@ rec {
         mouse = {
 		naturalScrolling = true;
                 additionalOptions = ''
-        		Option "ScrollPixelDistance" "50"
+        		Option "ScrollPixelDistance" "500"
                 '';
         };
     };
