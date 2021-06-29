@@ -17,6 +17,7 @@ set undofile
 set number
 set undodir=~/.undodir
 set t_Co=256 " terminal colors
+set omnifunc=syntaxcomplete#Complete
 " }}
 
 " {{ keyboard behaviour
@@ -31,17 +32,20 @@ set splitright
 
 " {{ Install plugins
 call plug#begin()
-  Plug 'preservim/nerdtree'
+"  Plug 'preservim/nerdtree'
+  Plug 'kyazdani42/nvim-tree.lua'
   Plug 'shaunsingh/nord.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'sheerun/vim-polyglot'  
-  Plug 'ryanoasis/vim-devicons'
-  Plug 'preservim/tagbar'
+"  Plug 'ryanoasis/vim-devicons'
+  Plug 'kyazdani42/nvim-web-devicons'
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/completion-nvim'
   Plug 'nvim-treesitter/completion-treesitter'
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
+"  Plug 'vim-airline/vim-airline'
+"  Plug 'vim-airline/vim-airline-themes'
+  Plug 'akinsho/nvim-bufferline.lua'
+  Plug 'glepnir/galaxyline.nvim', {'branch':'main'}
 call plug#end()
 " }}
 
@@ -53,10 +57,13 @@ let g:nord_disable_background = 0
 colorscheme nord
 
 " Hotkeys
-" NerdTRee
-nnoremap <C-n> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
-nnoremap <C-t> :TagbarToggle<CR>
+" Nvim-tree
+nnoremap <C-n> :NvimTreeToggle<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
+let g:nvim_tree_auto_open = 1
+let g:nvim_tree_auto_close = 1
+let g:nvim_tree_quit_on_open = 1
+
 
 " Start NERDTree. If a file is specified, move the cursor to its window.
 autocmd StdinReadPre * let s:std_in=1
@@ -69,10 +76,10 @@ set cursorline
 
 syntax on
 filetype plugin indent on
-let g:airline_theme='base16'
+"let g:airline_theme='base16'
 " tabline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_tabs = 1
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#show_tabs = 1
 " }}
 
 " {{ formatting
@@ -109,6 +116,9 @@ local on_attach = function(client, bufnr)
   --Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
+  --autocompletion?
+  require('completion').on_attach()
+
   -- Mappings.
   local opts = { noremap=true, silent=true }
 
@@ -141,7 +151,22 @@ for _, lsp in ipairs(servers) do
 end
 EOF
 "}}
+" {{ autocomplete
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" {{ autocompletion 
-autocmd BufEnter * lua require'completion'.on_attach()
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+let g:completion_enable_auto_popup = 1
+" }}
+
+" {{ nvim-bufferline
+set termguicolors
+lua << EOF
+require("bufferline").setup{}
+EOF
 " }}
