@@ -113,7 +113,7 @@ local on_attach = function(client, bufnr)
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   --autocompletion?
-  require('lspconfig').rust_analyzer.setup{on_attach=require('completion').on_attach}
+  --require('lspconfig').rust_analyzer.setup{on_attach=require('completion').on_attach}
 
   -- Mappings.
   local opts = { noremap=true, silent=true }
@@ -141,7 +141,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "rust_analyzer" }
+local servers = { "texlab", "rust_analyzer" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
