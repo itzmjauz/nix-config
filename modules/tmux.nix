@@ -7,6 +7,10 @@
       # delays in escaping insert mode in kakoune
       set -sg escape-time 0
 
+      # make nvim work within tmux
+      set -g default-terminal "tmux-256color"
+      set-option -ga terminal-overrides ",tmux-256color:Tc"
+
       # remap prefix from c-b to c-a 
       unbind C-b
       set-option -g prefix C-a

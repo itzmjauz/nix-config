@@ -343,8 +343,8 @@ myKeys c =
     -- Useful programs to have a keybinding for launch
         , ("M-<Return>",   spawn (myTerminal),      "Spawn terminator")
         , ("M-S-<Return>",   spawn (myTerminal ++ " -e tmux"),      "terminator + tmux")
-        , ("M-t",          spawn ("alacritty -o font.size=15 "),     "Spawn alacritty")
-        , ("M-S-t",        spawn ("alacritty -o font.size=15 -e tmux"),     "Alacritty + tmux")
+        , ("M-t",          spawn ("alacritty -o font.size=13 "),     "Spawn alacritty")
+        , ("M-S-t",        spawn ("alacritty -o font.size=13 -e tmux"),     "Alacritty + tmux")
          -- cant combine spawnando and normal code, so we just add a command
          -- one key away
         , ("M-S-y",        withFocused (sendMessage . mergeDir W.focusUp'), "Merge w -> tabs")
