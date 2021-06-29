@@ -5,7 +5,7 @@
     ./dircolors.nix
     ./vim.nix
     ./kakoune.nix
-    ./alacritty.nix
+    ./alacritty/alacritty.nix
     ./tmux.nix
     ./nvim/nvim.nix
   ];

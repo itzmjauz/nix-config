@@ -40,6 +40,8 @@ call plug#begin()
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/completion-nvim'
   Plug 'nvim-treesitter/completion-treesitter'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 " }}
 
@@ -66,6 +68,10 @@ set t_vb=
 
 syntax on
 filetype plugin indent on
+let g:airline_theme='base16'
+" tabline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_tabs = 1
 " }}
 
 " {{ formatting
