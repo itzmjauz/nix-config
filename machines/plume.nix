@@ -198,7 +198,7 @@ rec {
     # offensive/defense pentesting toolsi 
     msf radare2 radare2-cutter nmap python38Packages.pwntools gobuster nikto
     # editor, installed in their respective configs 
-    tree-sitter kak-lsp rust-analyzer # vim_configurable kakoune
+    texlab rnix-lsp tree-sitter kak-lsp rust-analyzer # vim_configurable kakoune
     # ssh / utility / steam-run is big, but allows for easy running of benign binaries (without linking issues)
     mosh tmux tree steam-run steam
     # utility
