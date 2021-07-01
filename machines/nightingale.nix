@@ -106,7 +106,13 @@ rec {
   fonts = {
     fontDir.enable = true;
     enableGhostscriptFonts = true;
-    fonts = with pkgs; [ source-code-pro carlito font-awesome mononoki ];
+    fonts = with pkgs; [ 
+      source-code-pro 
+      carlito 
+      font-awesome 
+      mononoki 
+      (nerdfonts.override { fonts = ["FiraCode"]; })
+    ];
   };
 
   nix.nixPath = pkgs.lib.mkBefore [
