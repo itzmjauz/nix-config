@@ -41,48 +41,22 @@ M.config = function()
     -- lspInstall + lspconfig stuff
 
     local function setup_servers()
-        require "lspinstall".setup()
 
-        local lspconf = require("lspconfig")
-        local servers = require "lspinstall".installed_servers()
+        local servers = { "rust_analyzer", "rnix", "texlab"}
+        local lspconf = require('lspconfig')
 
         for _, lang in pairs(servers) do
-            if lang ~= "lua" then
-                lspconf[lang].setup {
-                    on_attach = on_attach,
-                    root_dir = vim.loop.cwd
+            lspconf[lang].setup {
+                on_attach = on_attach,
+                root_dir = vim.loop.cwd,
+                flags = {
+                    debounce_text_changes = 150
                 }
-            elseif lang == "lua" then
-                lspconf[lang].setup {
-                    root_dir = vim.loop.cwd,
-                    settings = {
-                        Lua = {
-                            diagnostics = {
-                                globals = {"vim"}
-                            },
-                            workspace = {
-                                library = {
-                                    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                                    [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
-                                }
-                            },
-                            telemetry = {
-                                enable = false
-                            }
-                        }
-                    }
-                }
-            end
+            }
         end
     end
 
     setup_servers()
-
-    -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-    require "lspinstall".post_install_hook = function()
-        setup_servers() -- reload installed servers
-        vim.cmd("bufdo e") -- triggers FileType autocmd that starts the server
-    end
 
     -- replace the default lsp diagnostic letters with prettier symbols
     vim.fn.sign_define("LspDiagnosticsSignError", {text = "", numhl = "LspDiagnosticsDefaultError"})

@@ -3,7 +3,7 @@ local M = {}
 M.config = function()
     local g = vim.g
 
-    g.dashboard_disable_at_vimenter = 1 -- dashboard is disabled by default
+    g.dashboard_disable_at_vimenter = 0 -- dashboard is disabled by default
     g.dashboard_disable_statusline = 1
     g.dashboard_default_executive = "telescope"
     g.dashboard_custom_header = {
@@ -35,7 +35,7 @@ M.config = function()
 
     g.dashboard_custom_footer = {
         "   ",
-        "NvChad v0.5"
+        "NvCameroon v0.5"
     }
 end
 

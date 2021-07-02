@@ -43,7 +43,6 @@ call plug#begin()
   Plug 'norcalli/nvim-colorizer.lua'
   Plug 'nvim-treesitter/nvim-treesitter'
   Plug 'neovim/nvim-lspconfig'
-  Plug 'kabouzeid/nvim-lspinstall'
   Plug 'sbdchd/neoformat'
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'andymass/vim-matchup'

@@ -19,8 +19,8 @@ map("v", "x", [=[ "_x ]=], opt)
 --
 
 -- OPEN TERMINALS --
-map("n", "<C-l>", [[<Cmd>vnew term://bash <CR>]], opt) -- term over right
-map("n", "<C-x>", [[<Cmd> split term://bash | resize 10 <CR>]], opt) --  term bottom
+map("n", "<C-l>", [[<Cmd>vnew term://fish <CR>]], opt) -- term over right
+map("n", "<C-x>", [[<Cmd> split term://fish | resize 10 <CR>]], opt) --  term bottom
 map("n", "<C-t>t", [[<Cmd> tabnew | term <CR>]], opt) -- term newtab
 
 -- copy whole file content
