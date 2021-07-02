@@ -3,10 +3,7 @@ let
   config = pkgs.writeTextFile (rec {
     name = "kakrc.kak";
     destination = "/share/kak/autoload/${name}";
-    text = builtins.concatStringsSetp "\n" [
-      (builtins.readFile ./kakrc.kak)
-      (builtins.readFile ./one-dark.kak)
-    ];
+    text = builtins.readFile ./kakrc.kak;
   });
 in
 {

@@ -1,6 +1,7 @@
 local cmd = vim.cmd
 
-local global_theme = "config/themes/" .. vim.g.theme
+package.path = package.path .. ";/etc/xdg/nvim/config/?"
+local global_theme = "themes/" .. vim.g.theme
 local colors = require(global_theme)
 
 local white = colors.white
@@ -113,7 +114,7 @@ cmd "hi BufferLineBufferSelected gui=bold"
 
 -- tabs
 fg_bg("BufferLineTab", light_grey, one_bg3)
-fg_bg("BufferLineTabSelected", black2, nord_blue)
+--fg_bg("BufferLineTabSelected", black2, nord_blue)
 fg_bg("BufferLineTabClose", red, black)
 
 fg_bg("BufferLineIndicator", black2, black2)

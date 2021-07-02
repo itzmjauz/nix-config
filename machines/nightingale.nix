@@ -111,7 +111,7 @@ rec {
       carlito 
       font-awesome 
       mononoki 
-      (nerdfonts.override { fonts = ["FiraCode"]; })
+      (nerdfonts.override { fonts = ["FiraCode" "FiraMono"]; })
     ];
   };
 

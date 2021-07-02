@@ -4,7 +4,8 @@ local condition = require("galaxyline.condition")
 
 gl.short_line_list = {" "}
 
-local global_theme = "config/themes/" .. vim.g.theme
+package.path = package.path .. ";/etc/xdg/nvim/?"
+local global_theme = "themes/" .. vim.g.theme
 local colors = require(global_theme)
 
 gls.left[1] = {

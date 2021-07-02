@@ -63,12 +63,18 @@ in toConfig {
     };
   in {
     default = common // {
+      background_color = "#1e2127";
+      cursor_color = "#676c76";
+      foreground_color = "#5c6370";
+      palette = "#000000:#e06c75:#98c379:#d19a66:#61afef:#c678dd:#56b6c2:#abb2bf:#5c6370:#e06c75:#98c379:#d19a66:#61afef:#c678dd:#56b6c2:#fffefe";
+    };
+    solarized-dark = common // {    
       background_color = "#002b36";
       cursor_color = "#eee8d5";
       foreground_color = "#eee8d5";
       palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#006580:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3";
     };
-    light = common // {
+    solarized-light = common // {
       background_color = "#eee8d5";
       cursor_color = "#002b36";
       foreground_color = "#002b36";

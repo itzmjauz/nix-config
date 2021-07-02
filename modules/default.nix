@@ -4,7 +4,7 @@
 #    ./steam.nix
     ./dircolors.nix
 #    ./vim.nix
-    ./kakoune.nix
+    ./kakoune/kakoune.nix
     ./alacritty/alacritty.nix
     ./tmux.nix
     ./nvim/nvim.nix

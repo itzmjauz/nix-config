@@ -13,9 +13,11 @@ filetype plugin on
 "let &encoding = 'utf-8'
 set shell=/bin/sh
 "set hidden
-"set undofile
+set undofile
 "set number
 set undodir=~/.undodir
+set termguicolors
+set background=dark
 " set t_Co=256 " terminal colors
 " ?set omnifunc=syntaxcomplete#Complete
 " }}
@@ -53,29 +55,29 @@ call plug#end()
 " }}
 " {{start with the lua config
 lua << EOF
-require "config/top-bufferline"
-require "config/misc-utils"
+package.path = package.path .. ";/etc/xdg/nvim/config/?.lua"
+require "top-bufferline"
+require "misc-utils"
 
 local g = vim.g
 g.mapleader = " "
 --g.autosave = 0
 
 --configure plugins
-require("config/zenmode").config() --trueZen
-require("config/compe-completion").config()  -- compe
-require("config/compe-completion").snippets() -- compe luaSnip
+require("zenmode").config() --trueZen
+require("compe-completion").config()  -- compe
+require("compe-completion").snippets() -- compe luaSnip
 require("nvim-autopairs").setup() -- autopairs
-require("config/telescope-nvim").config() -- telescope ( and 4 plugs after it)
--- TODO > wont load
-require("config/nvimTree").config() -- nvimtree
+require("telescope-nvim").config() -- telescope ( and 4 plugs after it)
+require("nvimTree").config() -- nvimtree
 require("colorizer").setup()
-require("config/treesitter-nvim").config() -- treesitter
-require("config/nvim-lspconfig").config() -- lsp
-require("config/gitsigns-nvim").config() -- gitsigns
+require("treesitter-nvim").config() -- treesitter
+require("nvim-lspconfig").config() -- lsp
+require("gitsigns-nvim").config() -- gitsigns
 require("nvim_comment").setup() --comment
-require("config/dashboard").config() -- dashboard
+require("dashboard").config() -- dashboard
 require("neoscroll").setup() -- neoscroll
---require("config/misc-utils").blankline() -- blankline
+--require("misc-utils").blankline() -- blankline
 display = {
   border = {"┌", "─", "┐", "│", "┘", "─", "└", "│"}
 }
@@ -85,10 +87,10 @@ g.theme = "onedark"
 local base16 = require "base16"
 base16(base16.themes[g.theme], true)
 
-require "config/highlights"
-require "config/mappings"
-require "config/file-icons"
-require "config/statusline"
+require "highlights"
+require "mappings"
+require "file-icons"
+require "statusline"
 
 -- TODO > not en editor command
 -- vim.cmd("ColorizerReloadAllBuffers")
@@ -101,6 +103,7 @@ vim.api.nvim_exec(
 ]],
     false
 )
+
 
 EOF
 " }}

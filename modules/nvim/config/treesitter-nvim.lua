@@ -11,9 +11,9 @@ M.config = function()
             "bash",
             "lua",
             "json",
-            "python"
-            -- "rust",
-            -- "go"
+            "python",
+            "rust",
+            "go"
         },
         highlight = {
             enable = true,
