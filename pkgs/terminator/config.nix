@@ -64,8 +64,8 @@ in toConfig {
   in {
     default = common // {
       background_color = "#1e2127";
-      cursor_color = "#676c76";
-      foreground_color = "#5c6370";
+      cursor_color = "#839496";
+      foreground_color = "#abb2bf";
       palette = "#000000:#e06c75:#98c379:#d19a66:#61afef:#c678dd:#56b6c2:#abb2bf:#5c6370:#e06c75:#98c379:#d19a66:#61afef:#c678dd:#56b6c2:#fffefe";
     };
     solarized-dark = common // {    
