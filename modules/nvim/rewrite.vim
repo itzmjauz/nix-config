@@ -18,6 +18,7 @@ set undofile
 set undodir=~/.undodir
 set termguicolors
 set background=dark
+set timeoutlen=0
 " set t_Co=256 " terminal colors
 " ?set omnifunc=syntaxcomplete#Complete
 " }}
@@ -49,6 +50,7 @@ call plug#begin()
   Plug 'terrortylor/nvim-comment'
   Plug 'glepnir/dashboard-nvim'
   Plug 'karb94/neoscroll.nvim'
+  Plug 'folke/which-key.nvim'
   "Plug 'lukas-reineke/indent-blankline.nvim'
 call plug#end()
 " }}
@@ -77,6 +79,7 @@ require("nvim_comment").setup() --comment
 require("dashboard").config() -- dashboard
 require("neoscroll").setup() -- neoscroll
 --require("misc-utils").blankline() -- blankline
+require("which-key").setup()
 display = {
   border = {"┌", "─", "┐", "│", "┘", "─", "└", "│"}
 }
