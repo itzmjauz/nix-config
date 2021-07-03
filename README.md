@@ -19,16 +19,15 @@ Nixos allows for my terminal, vim, fish and awesomewm setups to be configured th
 
 TODO
 --------------------------
-- [ ] Reorganize vim config (put it under pkgs again with its own config?)
-- [ ] Reorganize alacritty , put it under pkgs 
-- [ ] Reorganize wm setup (xmonad mainly) into its own submodule, instead of under modules/ directly
+- [X] Reorganize vim config
+- [X] Reorganize wm setup (xmonad mainly) into its own submodule, instead of under modules/ directly
 - [ ] Put chromium setup into its own file (even though its only 1 line)
 - [X] Host specific configs
-- [ ] Move from Vim to Neovim when the config allows
+- [X] Move from Vim to Neovim when the config allows
 - [ ] Setup automatic mail sync 
 - [ ] Hopefully switch themes live in alacritty (similar to what terminator can do) 
-- [ ] Write config files of vim to the standard location instead of manually loading it from /etc/nixos/, 
-- [ ] Same for alacritty ^ 
+- [X] Write config files of vim to the standard location instead of manually loading it from /etc/nixos/, 
+- [X] Same for alacritty ^ 
 - [ ] Same for kakoune ^ 
 
 - [ ] Write better system setup details
