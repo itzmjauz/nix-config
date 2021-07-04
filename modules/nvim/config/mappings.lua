@@ -110,7 +110,8 @@ map("n", "<C-s>s", [[<Cmd> SessionSave<CR>]], opt)
 
 -- Telescope
 map("n", "<Leader>gt", [[<Cmd> Telescope git_status <CR>]], opt)
-map("n", "<Leader>cm", [[<Cmd> Telescope git_commits <CR>]], opt)
+map("n", "<Leader>gm", [[<Cmd> Telescope git_commits <CR>]], opt)
+map("n", "<Leader>gs", [[<Cmd> Telescope git_stash <CR>]], opt)
 map("n", "<Leader>ff", [[<Cmd> Telescope find_files <CR>]], opt)
 map("n", "<Leader>fp", [[<Cmd>lua require('telescope').extensions.media_files.media_files()<CR>]], opt)
 map("n", "<Leader>fb", [[<Cmd>Telescope buffers<CR>]], opt)
