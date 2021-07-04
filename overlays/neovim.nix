@@ -3,7 +3,7 @@ self: super: {
     version = "master";
     src = builtins.fetchGit {
       url = https://github.com/neovim/neovim.git;
-      rev = "5aaa1a1c0473d9e9ac824201f92ec65e190beeb7";
+      rev = "490615612ed5ec587c8023de28db495b3181de30"; 
     };
     nativeBuildInputs = super.neovim-unwrapped.nativeBuildInputs ++ [ super.tree-sitter self.cmake self.binutils-unwrapped ];
   });
