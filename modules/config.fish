@@ -128,3 +128,5 @@ set -x HELIX_RUNTIME ~/src/github.com/helix-editor/helix/runtime/ # similar to a
 alias f 'ranger'
 alias du 'dust'
 alias vim 'nvim'
+
+zoxide init fish | source
