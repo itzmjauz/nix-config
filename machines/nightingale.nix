@@ -208,6 +208,6 @@ rec {
     # utility
     gtk-icons compton pass gnupg alsaUtils gnome3.eog unzip exa
     # extra / try-out
-    gitui zoxide bat nushell procs
+    gitui bat nushell procs
   ];
 }
