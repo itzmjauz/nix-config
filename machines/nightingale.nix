@@ -190,7 +190,7 @@ rec {
     # shell/terminals
     fish terminator alacritty
     # browser - music 
-    chromium spotify neomutt
+    chromium spotify neomutt ncspot
     # web development
     nodejs vscode-with-extensions
     # programming / compilation / low-level development
