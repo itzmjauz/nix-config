@@ -51,6 +51,7 @@ call plug#begin()
   Plug 'glepnir/dashboard-nvim'
   Plug 'karb94/neoscroll.nvim'
   Plug 'folke/which-key.nvim'
+  Plug 'github/copilot.vim'
   "Plug 'lukas-reineke/indent-blankline.nvim'
 call plug#end()
 " }}

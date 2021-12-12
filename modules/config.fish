@@ -122,8 +122,6 @@ end
 alias zfs 'sudo zfs'
 alias zpool 'sudo zpool'
 alias ls 'exa'
-alias hx /home/itzmjauz/.cargo/bin/hx # possibly non-existent path, but this binary is so painful to build; writing a proper builder is too much work.
-set -x HELIX_RUNTIME ~/src/github.com/helix-editor/helix/runtime/ # similar to above
 #alias vim 'nvim'
 alias f 'ranger'
 alias du 'dust'
