@@ -21,10 +21,10 @@ rec {
       "experimental-features = nix-command flakes"; 
   };
 
-  # neovim overlay for 0.5
-  # nixpkgs.overlays = [
-  #  (import ./../overlays/neovim.nix)
-  # ];
+  # neovim overlay for 0.6
+   nixpkgs.overlays = [
+    (import ./../overlays/neovim.nix)
+   ];
 
   services.xserver = {
     enable = true;
@@ -202,7 +202,7 @@ rec {
     # offensive/defense pentesting toolsi 
     msf radare2 radare2-cutter nmap python38Packages.pwntools gobuster nikto
     # editor, installed in their respective configs 
-    texlab rnix-lsp tree-sitter kak-lsp rust-analyzer helix neovim # vim_configurable kakoune
+    texlab rnix-lsp tree-sitter kak-lsp rust-analyzer helix # vim_configurable kakoune
     # ssh / utility / steam-run is big, but allows for easy running of benign binaries (without linking issues)
     mosh tmux tree steam-run
     # utility
