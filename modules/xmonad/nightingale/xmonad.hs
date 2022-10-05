@@ -335,7 +335,7 @@ myKeys c =
 --        , ("M-p k", spawn "dm-kill")      -- kill processes
 --        , ("M-p m", spawn "dm-man")       -- manpages
 --        , ("M-p o", spawn "dm-bookman")   -- qutebrowser bookmarks/history
---        , ("M-p p", spawn "passmenu")     -- passmenu
+        , ("M-p", spawn ("passmenu"), "spawn passmenu")     -- passmenu
 --        , ("M-p q", spawn "dm-logout")    -- logout menu
 --        , ("M-p r", spawn "dm-reddit")    -- reddio (a reddit viewer)
 --        , ("M-p s", spawn "dm-websearch") -- search various search engines

@@ -76,13 +76,13 @@ require("telescope-nvim").config() -- telescope ( and 4 plugs after it)
 require("nvimTree").config() -- nvimtree
 require("colorizer").setup()
 require("treesitter-nvim").config() -- treesitter
-require("nvim-lspconfig").config() -- lsp
 require("gitsigns-nvim").config() -- gitsigns
 require("nvim_comment").setup() --comment
 require("dashboard").config() -- dashboard
 require("neoscroll").setup() -- neoscroll
 require("rust-tools").setup() -- rust-tools
 --require("misc-utils").blankline() -- blankline
+require("nvim-lspconfig").config() -- lsp
 require("which-key").setup()
 display = {
   border = {"┌", "─", "┐", "│", "┘", "─", "└", "│"}
