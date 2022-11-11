@@ -72,7 +72,7 @@ for nativeBuildInput in (echo $nativeBuildInputs | tr ' ' '\n')
 end
 
 set -x NIX_AUTO_RUN true
-set -x TERM xterm-256color
+set -x TERM xterm-color
 
 alias g      'git'
 alias gst    'git status'
