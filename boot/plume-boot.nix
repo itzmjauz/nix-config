@@ -38,7 +38,7 @@ in
   boot = {
     loader = {
       systemd-boot.enable = true;
-      timeout = null;
+      timeout = 60;
     };
 
     supportedFilesystems = [ "zfs" ];

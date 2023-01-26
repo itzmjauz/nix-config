@@ -120,6 +120,7 @@ rec {
   ];
 
   hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.enable = true;
   hardware.pulseaudio.support32Bit = true;
 
   time.timeZone = "Europe/Amsterdam";
@@ -181,6 +182,7 @@ rec {
     wget pkgs.boot acpi which xorg.xf86inputsynaptics powertop htop whois file
     # screen settings/setup/utility
     rofi xcompmgr arandr xorg.xbacklight #backlight settings ( utilised through awesome configs as well )
+    mesa.drivers
     # window manager
     libnotify xorg.xdpyinfo dzen2 xdotool feh xmobar trayer volumeicon networkmanagerapplet
     # shell/terminals
