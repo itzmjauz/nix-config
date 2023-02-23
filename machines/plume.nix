@@ -13,6 +13,8 @@ rec {
   ];
 
   environment.variables.EDITOR = "kak";
+  # set bigger cursor size
+  environment.variables.XCURSOR_SIZE = "64";
   # enable flakes
   nix = { 
     package = pkgs.nixFlakes; 
