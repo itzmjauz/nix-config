@@ -174,7 +174,7 @@ rec {
 
   # system base packages
   environment.systemPackages = with pkgs; let
-    gtk-icons = pkgs.hicolor_icon_theme;
+    gtk-icons = pkgs.hicolor-icon-theme;
   in [
     # configs
     terminatorsauce awesomesauce # terminator/awesome configs
@@ -200,7 +200,7 @@ rec {
     # development / utility
     ctags git git-hub evince nix-index ranger du-dust
     # offensive/defense pentesting toolsi 
-    msf radare2 radare2-cutter nmap python38Packages.pwntools gobuster nikto
+    metasploit radare2 radare2-cutter nmap python38Packages.pwntools gobuster nikto
     # editor, installed in their respective configs 
     texlab rnix-lsp tree-sitter kak-lsp rust-analyzer # vim_configurable kakoune
     # ssh / utility / steam-run is big, but allows for easy running of benign binaries (without linking issues)

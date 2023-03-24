@@ -12,9 +12,9 @@
       set-option -ga terminal-overrides ",tmux-256color:Tc"
 
       # remap prefix from c-b to c-a 
-      unbind C-b
-      set-option -g prefix C-a
-      bind C-a send-prefix
+      #unbind C-b
+      #set-option -g prefix C-a
+      #bind C-a send-prefix
 
       # some nice extra split commands
       bind | split window -h
@@ -55,8 +55,10 @@
       #set-window-option -g window-status-current-style bright
 
       # pane border
-      set-option -g pane-border-style fg=colour235 #base02
-      set-option -g pane-active-border-style fg=colour240 #base01
+      #set-option -g pane-border-style fg=colour235 #base02
+      #set-option -g pane-active-border-style fg=colour240 #base01
+      set-option -g pane-border-style fg=green #base02
+      set-option -g pane-active-border-style fg=orange #base01
 
       # message text
       set-option -g message-style fg=colour166,bg=colour235 #orange and base02
