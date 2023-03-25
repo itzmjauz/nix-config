@@ -111,7 +111,7 @@ rec {
       carlito 
       font-awesome 
       mononoki
-      (nerdfonts.override { fonts = ["FiraCode"]; })
+      (nerdfonts.override { fonts = ["FiraCode" "FiraMono" "Mononoki"]; })
     ];
   };
 
@@ -204,7 +204,7 @@ rec {
     # editor, installed in their respective configs 
     texlab rnix-lsp tree-sitter kak-lsp rust-analyzer # vim_configurable kakoune
     # ssh / utility / steam-run is big, but allows for easy running of benign binaries (without linking issues)
-    mosh tmux tree steam-run steam
+    mosh tmux tree steam-run steam exa bat
     # utility
     gtk-icons compton pass gnupg alsaUtils gnome3.eog unzip exa scrot flameshot discord
   ];
