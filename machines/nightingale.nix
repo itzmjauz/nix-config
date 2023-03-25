@@ -63,6 +63,7 @@ rec {
     before = ["local-fs.target" "multi-user.target" "sysinit.target"];
   };
   systemd.services.zfs-mount.requires = ["zfs-import.target"];
+  system.stateVersion = "21.11";
 
   networking.firewall.enable = true;
   networking.networkmanager.enable = true;
